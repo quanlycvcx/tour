@@ -6,7 +6,7 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Tour EQ</title>
+        <title>EQ Tour</title>
         
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
@@ -483,7 +483,7 @@
             </a>
             
             <button id="custom-draw-marker-btn" title="Đánh Dấu Điểm Vị Trí">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5 1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
             </button>
             <button id="custom-draw-line-btn" title="Đo Khoảng Cách / Vẽ Đường">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23 8c0 1.1-.9 2-2 2-.18 0-.35-.02-.51-.07l-3.56 3.55c.05.16.07.33.07.52 0 1.1-.9 2-2 2s-2-.9-2-2c0-.19.02-.36.07-.52l-2.55-2.55c-.16.05-.33.07-.52.07s-.36-.02-.52-.07l-4.55 4.56c.05.16.07.33.07.52 0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2c.19 0 .36.02.52.07l4.56-4.55C3.02 10.36 3 10.19 3 10c0-1.1.9-2 2-2s2 .9 2 2c0 .19-.02.36-.07.52l2.55 2.55c.16-.05.33-.07.52-.07s.36.02.52.07l3.55-3.56C14.02 9.35 14 9.18 14 9c0-1.1.9-2 2-2s2 .9 2 2c0 .18-.02.35-.07.51l3.56 3.56c.16-.05.33-.07.51-.07 1.1 0 2 .9 2 2z"/></svg>
@@ -1177,6 +1177,22 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
             showToast("Đã xóa sạch toàn bộ các lớp bản đồ ngoại vi.", "success");
         }
 
+        // --- HÀM BỔ TRỢ: TÍNH TOÁN KHOẢNG ĐỆM PHÙ HỢP TỪNG THIẾT BỊ (MOBILE/DESKTOP) ---
+        function getAdaptiveBoundsPadding() {
+            const isMobile = window.innerWidth <= 767;
+            if (isMobile) {
+                return {
+                    paddingTopLeft: [15, 90],   // Đệm lề trái 15px, lề trên 90px (Tránh thanh tìm kiếm đè lên)
+                    paddingBottomRight: [15, 25] // Đệm lề phải 15px, lề dưới 25px
+                };
+            } else {
+                return {
+                    paddingTopLeft: [45, 85],   // Không gian rộng rãi trên Desktop
+                    paddingBottomRight: [45, 45]
+                };
+            }
+        }
+
         async function loadSelectedDriveFiles() {
             const selectedCheckboxes = $('.drive-select-file:checked');
             if (selectedCheckboxes.length === 0) {
@@ -1236,8 +1252,16 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
             }
             
             refreshLayerTreeControl();
+            
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI NẠP NHIỀU FILE ---
             if (combinedBounds.isValid()) {
-                map.fitBounds(combinedBounds, { padding: [40, 40] });
+                const pad = getAdaptiveBoundsPadding();
+                map.fitBounds(combinedBounds, {
+                    paddingTopLeft: pad.paddingTopLeft,
+                    paddingBottomRight: pad.paddingBottomRight,
+                    animate: true,
+                    duration: 1.2
+                });
             }
             
             toggleLoading(false);
@@ -1438,6 +1462,7 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
 
         $('#custom-directions-btn').click(function(e) { e.preventDefault(); if (extState.userGPSPosition && !document.getElementById('directions-start-input').value.trim()) { document.getElementById('directions-start-input').value = 'Vị trí của tôi'; } toggleDirectionsModal(true); });
 
+        // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH THÔNG MINH CHO LỘ TRÌNH TÌM ĐƯỜNG ---
         $('#get-directions-btn').click(async function() {
             if (extState.routingControl) { map.removeControl(extState.routingControl); extState.routingControl = null; }
             document.getElementById('route-summary-modal').style.display = 'none'; extState.currentActiveRouteGeo = null; extState.currentActiveInstructions = null;
@@ -1450,10 +1475,29 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
             };
             try {
                 const startLatLng = await geocodeTarget(startVal, extState.startCoord); const endLatLng = await geocodeTarget(endVal, extState.endCoord);
-                extState.routingControl = L.Routing.control({ waypoints: [startLatLng, endLatLng], router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }), show: false, addWaypoints: false, lineOptions: { styles: [{ color: '#28a745', opacity: 0.8, weight: 6 }] } }).addTo(map);
+                
+                // Thiết lập tùy biến đệm lề cho lộ trình tuyến đường di chuyển
+                const pad = getAdaptiveBoundsPadding();
+                extState.routingControl = L.Routing.control({ 
+                    waypoints: [startLatLng, endLatLng], 
+                    router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }), 
+                    show: false, 
+                    addWaypoints: false, 
+                    fitSelectedRoutes: false, // Tắt tự động fit mặc định để áp dụng logic đệm lề tùy biến
+                    lineOptions: { styles: [{ color: '#28a745', opacity: 0.8, weight: 6 }] } 
+                }).addTo(map);
+                
                 extState.routingControl.on('routesfound', function(e) {
                     const route = e.routes[0]; const summary = route.summary; extState.currentActiveRouteGeo = route.coordinates; extState.currentActiveInstructions = route.instructions;
                     document.getElementById('summary-distance').textContent = (summary.totalDistance / 1000).toFixed(2) + ' km'; document.getElementById('summary-time').textContent = Math.round(summary.totalTime / 60) + ' phút'; document.getElementById('route-summary-modal').style.display = 'block'; toggleLoading(false); toggleDirectionsModal(false);
+                    
+                    // Thực thi căn chỉnh bao trọn tuyến đường di chuyển
+                    const routeBounds = L.latLngBounds(route.coordinates);
+                    map.fitBounds(routeBounds, {
+                        paddingTopLeft: pad.paddingTopLeft,
+                        paddingBottomRight: pad.paddingBottomRight,
+                        animate: true
+                    });
                 });
                 extState.routingControl.on('routingerror', function() { showToast("Không tìm thấy đường đi khả dụng.", "error"); toggleLoading(false); });
             } catch(err) { showToast("Lỗi phân tích cú pháp địa điểm.", "error"); toggleLoading(false); }
@@ -1533,7 +1577,16 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                 processAndAppendParsedLayer(res.dom, res.name, res.files || {}, combinedBounds, false);
             });
             
-            if (combinedBounds.isValid()) map.fitBounds(combinedBounds, { padding: [40, 40] });
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI UPLOAD FILE CỤC BỘ ---
+            if (combinedBounds.isValid()) {
+                const pad = getAdaptiveBoundsPadding();
+                map.fitBounds(combinedBounds, {
+                    paddingTopLeft: pad.paddingTopLeft,
+                    paddingBottomRight: pad.paddingBottomRight,
+                    animate: true,
+                    duration: 1.2
+                });
+            }
             refreshLayerTreeControl();
             toggleLoading(false);
             showToast("Đã nạp thành công các lớp dữ liệu mới vào hệ thống!", "success");
@@ -1555,8 +1608,6 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                     L.imageOverlay(imageUrl, bounds).addTo(layerGroup);
                 }
             }
-            
-            // --- LOGIC ĐƯỢC NÂNG CẤP: KHỚP VÀ CHUYỂN ĐỔI BIỂU TƯỢNG (ICON/STYLE) TỪ FILE KMZ SANG BASE64 ---
             const iconStyles = {}; 
             const styleMaps = {}; 
             const styles = dom.getElementsByTagName('Style');
@@ -1566,25 +1617,22 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                 const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
                 if (styleId && iconHrefElement) {
                     let iconHref = iconHrefElement.textContent.trim();
-                    // Loại bỏ tiền tố tương đối nếu có
                     let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, '');
                     let finalIconUrl = "";
 
-                    // Kiểm tra xem icon có tồn tại trong dữ liệu file nén KMZ không
                     if (kmzFiles[cleanHref]) {
                         let ext = cleanHref.split('.').pop();
                         finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`;
                     } else {
-                        // Tìm kiếm tương đối lỏng nếu file lưu trong subfolder khác
                         let baseName = cleanHref.split('/').pop();
-                        let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName));
+                        let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
                         if (foundKey) {
                             let ext = foundKey.split('.').pop();
                             finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`;
                         } else if (iconHref.startsWith('http')) {
-                            finalIconUrl = iconHref; // Icon trực tuyến
+                            finalIconUrl = iconHref;
                         } else {
-                            finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; // Icon dự phòng
+                            finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl;
                         }
                     }
                     
@@ -1597,11 +1645,9 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                 }
             }
             
-            // Khớp bản đồ cấu trúc thẻ StyleMap của KML
             const kmlStyleMaps = dom.getElementsByTagName('StyleMap');
             for (const styleMap of kmlStyleMaps) { 
                 const styleMapId = styleMap.getAttribute('id'); 
-                // Lấy style thực thi ở trạng thái bình thường (normal)
                 const pairs = styleMap.getElementsByTagName('Pair');
                 for (let j = 0; j < pairs.length; j++) {
                     let key = pairs[j].getElementsByTagName('key')[0]?.textContent;
@@ -1644,8 +1690,17 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                 globalBounds.extend(layerGroup.getBounds());
             }
 
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI NẠP ĐƠN LẺ FILE ---
             if(singleMode) {
-                if (layerGroup.getBounds().isValid() && map) map.fitBounds(layerGroup.getBounds(), { padding: [40, 40] });
+                if (layerGroup.getBounds().isValid() && map) {
+                    const pad = getAdaptiveBoundsPadding();
+                    map.fitBounds(layerGroup.getBounds(), { 
+                        paddingTopLeft: pad.paddingTopLeft,
+                        paddingBottomRight: pad.paddingBottomRight,
+                        animate: true,
+                        duration: 1.2
+                    });
+                }
                 refreshLayerTreeControl();
                 toggleLoading(false);
                 showToast(`Đã nạp thành công: ${layerName}`, "success");
