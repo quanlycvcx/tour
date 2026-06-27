@@ -6,7 +6,7 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Tour EQ</title>
+        <title>Quản lý Bản đồ Số Hệ thống</title>
         
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
@@ -711,7 +711,7 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
         <script src="data/PThuDuc_3.js"></script>
 
         <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxStopDLgpd7h_OJyVm-l-yfE1kFTh5rH8Q8NJpZ-8FWJXdwyilNAqDw7E7sJtZmjZMUQ/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnc-hJDWVvhGlXuEA5EKsnGEEZxV16lOCyVYQeXwCC3_EilS4cdfYaRfb3ArwqjFVvHw/exec';
 
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
@@ -1555,22 +1555,80 @@ Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đứ
                     L.imageOverlay(imageUrl, bounds).addTo(layerGroup);
                 }
             }
-            const iconStyles = {}; const styleMaps = {}; const styles = dom.getElementsByTagName('Style');
+            
+            // --- LOGIC ĐƯỢC NÂNG CẤP: KHỚP VÀ CHUYỂN ĐỔI BIỂU TƯỢNG (ICON/STYLE) TỪ FILE KMZ SANG BASE64 ---
+            const iconStyles = {}; 
+            const styleMaps = {}; 
+            const styles = dom.getElementsByTagName('Style');
+            
             for (const style of styles) {
-                const styleId = style.getAttribute('id'); const iconHref = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0]?.textContent;
-                if (styleId && iconHref) {
-                    let iconUrl = kmzFiles[iconHref] ? `data:image/${iconHref.split('.').pop()};base64,${iconHref}h` : getCustomIcon(iconHref.split('/').pop().split('.')[0]).options.iconUrl;
-                    iconStyles[`#${styleId}`] = L.icon({ iconUrl: iconUrl, iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -32] });
+                const styleId = style.getAttribute('id'); 
+                const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
+                if (styleId && iconHrefElement) {
+                    let iconHref = iconHrefElement.textContent.trim();
+                    // Loại bỏ tiền tố tương đối nếu có
+                    let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, '');
+                    let finalIconUrl = "";
+
+                    // Kiểm tra xem icon có tồn tại trong dữ liệu file nén KMZ không
+                    if (kmzFiles[cleanHref]) {
+                        let ext = cleanHref.split('.').pop();
+                        finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`;
+                    } else {
+                        // Tìm kiếm tương đối lỏng nếu file lưu trong subfolder khác
+                        let baseName = cleanHref.split('/').pop();
+                        let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName));
+                        if (foundKey) {
+                            let ext = foundKey.split('.').pop();
+                            finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`;
+                        } else if (iconHref.startsWith('http')) {
+                            finalIconUrl = iconHref; // Icon trực tuyến
+                        } else {
+                            finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; // Icon dự phòng
+                        }
+                    }
+                    
+                    iconStyles[`#${styleId}`] = L.icon({ 
+                        iconUrl: finalIconUrl, 
+                        iconSize: [32, 32], 
+                        iconAnchor: [16, 32], 
+                        popupAnchor: [0, -32] 
+                    });
                 }
             }
+            
+            // Khớp bản đồ cấu trúc thẻ StyleMap của KML
             const kmlStyleMaps = dom.getElementsByTagName('StyleMap');
-            for (const styleMap of kmlStyleMaps) { const styleMapId = styleMap.getAttribute('id'); const normalStyleUrl = styleMap.getElementsByTagName('Pair')[0]?.getElementsByTagName('styleUrl')[0]?.textContent; if (styleMapId && normalStyleUrl) styleMaps[`#${styleMapId}`] = normalStyleUrl; }
+            for (const styleMap of kmlStyleMaps) { 
+                const styleMapId = styleMap.getAttribute('id'); 
+                // Lấy style thực thi ở trạng thái bình thường (normal)
+                const pairs = styleMap.getElementsByTagName('Pair');
+                for (let j = 0; j < pairs.length; j++) {
+                    let key = pairs[j].getElementsByTagName('key')[0]?.textContent;
+                    if (key === 'normal') {
+                        let normalStyleUrl = pairs[j].getElementsByTagName('styleUrl')[0]?.textContent;
+                        if (styleMapId && normalStyleUrl) styleMaps[`#${styleMapId}`] = normalStyleUrl;
+                        break;
+                    }
+                }
+                if (!styleMaps[`#${styleMapId}`] && pairs.length > 0) {
+                    let fallbackStyleUrl = pairs[0].getElementsByTagName('styleUrl')[0]?.textContent;
+                    if (styleMapId && fallbackStyleUrl) styleMaps[`#${styleMapId}`] = fallbackStyleUrl;
+                }
+            }
 
             L.geoJSON(toGeoJSON.kml(dom), {
                 style: (f) => f.properties.styleUrl && f.properties.styleUrl.includes('LineString') ? { color: '#007BFF', weight: 4 } : {},
                 pointToLayer: function (f, latlng) {
-                    let o = {}; let sUrl = f.properties.styleUrl; if (sUrl) { if (styleMaps[sUrl]) sUrl = styleMaps[sUrl]; if (iconStyles[sUrl]) o.icon = iconStyles[sUrl]; }
-                    if (!o.icon) o.icon = getCustomIcon('default'); return L.marker(latlng, o);
+                    let o = {}; 
+                    let sUrl = f.properties.styleUrl; 
+                    if (sUrl) { 
+                        sUrl = sUrl.trim();
+                        if (styleMaps[sUrl]) sUrl = styleMaps[sUrl]; 
+                        if (iconStyles[sUrl]) o.icon = iconStyles[sUrl]; 
+                    }
+                    if (!o.icon) o.icon = getCustomIcon('default');
+                    return L.marker(latlng, o);
                 },
                 onEachFeature: function(f, layer) {
                     let c = ""; if (f.properties.name) c += `<b>${f.properties.name}</b>`; if (f.properties.description) c += `<br>${f.properties.description}`;
