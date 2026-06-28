@@ -428,146 +428,7 @@
             border-color: #1a73e8;
         }
 
-        .layer-opacity-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: 24px;
-            margin-top: 2px;
-            margin-bottom: 6px;
-            font-size: 11px;
-            color: #666;
-        }
-        .layer-opacity-slider {
-            -webkit-appearance: none;
-            width: 80px;
-            height: 4px;
-            background: #ddd;
-            border-radius: 2px;
-            outline: none;
-        }
-        .layer-opacity-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #28a745;
-            cursor: pointer;
-        }
-
-        .bottom-sheet {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            right: 0;
-            width: 100%;
-            max-height: 75vh;
-            background: #ffffff;
-            border-radius: 16px 16px 0 0;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-            z-index: 2000;
-            transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            visibility: hidden;
-        }
-        .bottom-sheet.show {
-            bottom: 0;
-            visibility: visible;
-        }
-        .bottom-sheet-header {
-            padding: 8px 16px 12px 16px;
-            border-bottom: 1px solid #eee;
-            background: #fdfdfd;
-            border-radius: 16px 16px 0 0;
-        }
-        .bottom-sheet-handle {
-            width: 40px;
-            height: 4px;
-            background: #ccc;
-            border-radius: 2px;
-            margin: 0 auto 8px auto;
-        }
-        .bottom-sheet-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .bottom-sheet-title-row h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-        .btn-close-sheet {
-            background: none;
-            border: none;
-            font-size: 16px;
-            color: #666;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .bottom-sheet-body {
-            padding: 16px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        .bottom-sheet-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 1999;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .bottom-sheet-overlay.show {
-            display: block;
-            opacity: 1;
-        }
-
-        .btn-popup-cloud-save {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            background-color: #1a73e8;
-            color: white !important;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-            width: 100%;
-            box-sizing: border-box;
-            transition: background 0.2s;
-        }
-        .btn-popup-cloud-save:hover { background-color: #1557b0; }
-        .btn-popup-cloud-save.saved { background-color: #28a745; cursor: default; }
-
         @media (max-width: 767px) {
-            .leaflet-control-layers-tree.leaflet-control-layers-expanded {
-                display: none !important;
-            }
-            .mobile-layer-trigger {
-                position: fixed;
-                right: 12px;
-                bottom: 85px;
-                width: 46px;
-                height: 46px;
-                background: #28a745;
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                z-index: 1000;
-                cursor: pointer;
-            }
             .leaflet-top.leaflet-right { top: 65px !important; }
             #search-ui-container { top: 12px; padding: 2px 6px; width: 92%; }
             #search-ui-container input { padding: 6px 2px 6px 6px; font-size: 13px; }
@@ -584,9 +445,6 @@
             #route-summary-modal { top: 65px; width: 85%; padding: 12px; }
             .leaflet-top.leaflet-left { top: 70px; }
             #streetview-modal .modal-content { height: 60vh; }
-        }
-        @media (min-width: 768px) {
-            .mobile-layer-trigger { display: none !important; }
         }
         </style>
     </head>
@@ -633,7 +491,7 @@
             <button id="custom-draw-poly-btn" title="Đo Diện Tích / Vẽ Vùng">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 15.58V13c0-1.1-.9-2-2-2H9V9.42c1.16-.41 2-1.51 2-2.82 0-1.66-1.34-3-3-3S5 4.94 5 6.6c0 1.31.84 2.41 2 2.82v5.16c-1.16.41-2 1.51-2 2.82 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.31-.84-2.41-2-2.82V13h4v2.58c-1.16.41-2 1.51-2 2.82 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.31-.84-2.41-2-2.82z"/></svg>
             </button>
-            <button id="custom-export-kml-btn" title="Đóng gói & Lưu Toàn Bộ Thực Địa Đám Mây" style="display: none; background-color: #e8f0fe; color: #28a745;">
+            <button id="custom-export-kml-btn" title="Lưu Dữ Liệu" style="display: none; background-color: #e8f0fe; color: #28a745;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
             </button>
             
@@ -651,7 +509,7 @@
             <button id="custom-streetview-btn" title="Kích hoạt Google Street View">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2c-2.8 0-5.3 1.3-7 3.3V3H3v6h6V7H6.1C7.6 5.2 9.7 4 12 4c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8H2c0 5.5 4.5 10 10 10s10-4.5 10-10S17.5 2 12 2zM11.5 6c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5S14 9.9 14 8.5 12.9 6 11.5 6zm0 11c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/></svg>
             </button>
-            <button id="custom-image-ocr-btn" title="Trích xuất tọa độ từ ảnh ẩn GPS">
+            <button id="custom-image-ocr-btn" title="Trích xuất tọa độ từ ảnh">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
             </button>
             <button id="custom-browse-drive-btn" title="Mở danh mục bản đồ" style="background-color: #fff; color: #1a73e8;">
@@ -709,18 +567,19 @@
         <div id="save-kml-modal" class="modal-overlay">
             <div class="modal-content">
                 <button class="modal-close-btn" onclick="$('#save-kml-modal').removeClass('visible')">×</button>
-                <h3 id="save-modal-title">Lưu dữ liệu đo vẽ phiên làm việc</h3>
+                <h3 id="save-modal-title">Lưu dữ liệu đo vẽ</h3>
                 <div class="form-group" style="margin-top: 15px;">
-                    <label for="kml-filename">Tên File (Gợi ý đồng bộ theo nội dung thực địa):</label>
+                    <label for="kml-filename">Tên File (Theo cấu trúc gợi ý):</label>
                     <input type="text" id="kml-filename" placeholder="Ví dụ: NguyenVanA_KhaoSatCayXanh_ThuDuc">
                 </div>
                 <div class="form-group">
                     <label for="kml-description" id="save-modal-desc-label">Mô tả nội dung đo vẽ chi tiết:</label>
-                    <textarea id="kml-description" placeholder="Mô tả tóm tắt tổng thể phiên làm việc..."></textarea>
+                    <textarea id="kml-description" placeholder="Ví dụ: Người thực hiện: Nguyễn Văn A
+Nội dung: Đo đạc hiện trạng cây xanh bóng mát khu vực Thủ Đức..."></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-action btn-gray" onclick="$('#save-kml-modal').removeClass('visible')" style="border-radius:20px;">HỦY</button>
-                    <button class="btn-action btn-blue" id="btn-confirm-save-drive" style="border-radius:20px; padding: 8px 20px;">LƯU PHIÊN LÀM VIỆC</button>
+                    <button class="btn-action btn-blue" id="btn-confirm-save-drive" style="border-radius:20px; padding: 8px 20px;">LƯU</button>
                 </div>
             </div>
         </div>
@@ -761,10 +620,10 @@
         <div id="ocr-modal" class="modal-overlay">
             <div class="modal-content" style="max-width: 480px;">
                 <button class="modal-close-btn" onclick="toggleOcrModal(false)">×</button>
-                <h3>Trích xuất dữ liệu ẩn EXIF GPS từ ảnh</h3>
+                <h3>Trích xuất dữ liệu ảnh Timemark</h3>
                 
                 <div class="dropzone" id="dropzone">
-                    <p>Kéo thả hình ảnh hiện trường vào đây hoặc nhấp để duyệt tệp</p>
+                    <p>Kéo thả hình ảnh mốc vào đây hoặc nhấp để duyệt file</p>
                     <input type="file" id="fileInput" accept="image/*" style="display:none">
                 </div>
 
@@ -772,43 +631,20 @@
                     <div class="main-coord-box">
                         <span id="displayCoords" class="coord-val"></span>
                         <div class="btn-ocr-group">
-                            <button id="copyCoordsBtn" class="btn-action btn-gray">Sao chép tọa độ</button>
+                            <button id="copyCoordsBtn" class="btn-action btn-gray">Sao chép chuỗi</button>
                             <a id="mapsLink" href="#" target="_blank" class="btn-action btn-blue">Xem trên Maps</a>
                         </div>
                     </div>
+
                     <table class="info-table">
-                        <tr><th>GPS Thập Phân</th><td id="attr-gps">-</td></tr>
+                        <tr><th>Thời gian</th><td id="attr-time">-</td></tr>
+                        <tr><th>Ngày tháng</th><td id="attr-date">-</td></tr>
+                        <tr><th>Địa chỉ</th><td id="attr-address">-</td></tr>
+                        <tr><th>Tọa độ GPS</th><td id="attr-gps">-</td></tr>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-action btn-gray" onclick="toggleOcrModal(false)" style="border-radius:20px;">Đóng</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="feature-attributes-modal" class="modal-overlay">
-            <div class="modal-content" style="max-width: 400px;">
-                <button class="modal-close-btn" onclick="$('#feature-attributes-modal').removeClass('visible')">×</button>
-                <h3>Thông tin đối tượng khảo sát</h3>
-                <p style="font-size:12px; color:#666; margin-top:-5px;">Thiết lập các trường thuộc tính kỹ thuật chuyên ngành cho hình vẽ.</p>
-                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                <form id="frm-feature-attr">
-                    <div class="form-group">
-                        <label for="attr-feature-name">Tên đối tượng / Mã số:</label>
-                        <input type="text" id="attr-feature-name" placeholder="Ví dụ: Cây Dầu Số 14, Hố Ga Ngập...">
-                    </div>
-                    <div class="form-group">
-                        <label for="attr-feature-status">Trạng thái hiện trạng:</label>
-                        <input type="text" id="attr-feature-status" placeholder="Ví dụ: Bình thường, Nghiêng nguy hiểm...">
-                    </div>
-                    <div class="form-group">
-                        <label for="attr-feature-note">Ghi chú kỹ thuật chi tiết:</label>
-                        <textarea id="attr-feature-note" placeholder="Nhập mô tả hiện trường chi tiết bổ sung..."></textarea>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button class="btn-action btn-gray" onclick="$('#feature-attributes-modal').removeClass('visible')" style="border-radius:20px;">Bỏ qua</button>
-                    <button class="btn-action btn-blue" id="btn-save-feature-attr" style="border-radius:20px; padding: 8px 20px;">CẬP NHẬT</button>
                 </div>
             </div>
         </div>
@@ -831,7 +667,7 @@
                         Ngân hàng: <strong>Vietinbank</strong><br>
                         Số TK: <strong onclick="navigator.clipboard.writeText('104005489108'); showToast('Đã sao chép số tài khoản!', 'success')">104005489108 (Nhấn để sao chép)</strong><br>
                         Chủ TK: <strong>Nguyễn Minh Khoa</strong><br>
-                        Nội dung: <strong onclick="navigator.clipboard.writeText('Ung ho Ech Xinh'); showToast('Đã sao chép nội dung!', 'success')">Ung ho Ech Xinh</strong>
+                        Nội dung chuyển khoản (gợi ý): <strong onclick="navigator.clipboard.writeText('Ung ho Ech Xinh'); showToast('Đã sao chép nội dung chuyển khoản!', 'success')">Ung ho Ech Xinh (Nhấn để sao chép)</strong>
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -839,18 +675,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="mobile-bottom-sheet" class="bottom-sheet">
-            <div class="bottom-sheet-header">
-                <div class="bottom-sheet-handle"></div>
-                <div class="bottom-sheet-title-row">
-                    <h3>Danh mục lớp bản đồ</h3>
-                    <button id="close-bottom-sheet" class="btn-close-sheet"><i class="fas fa-times"></i></button>
-                </div>
-            </div>
-            <div id="bottom-sheet-content" class="bottom-sheet-body"></div>
-        </div>
-        <div id="bottom-sheet-overlay" class="bottom-sheet-overlay"></div>
 
         <div id="loading-spinner"></div>
         <div id="toast-notification"></div>
@@ -873,13 +697,15 @@
 
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/togeojson/0.16.0/togeojson.min.js"></script>
         <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
         <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+        
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuRWIozMKFbaB82wW1NqRvBGcF8_q_fSg"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
         <script src="data/GT_KV2_11_2.js"></script>
         <script src="data/PThuDuc_3.js"></script>
@@ -1214,155 +1040,56 @@
             }
         });
 
-        let tempDrawnLayer = null;
-        let tempDrawnType = "";
-        let calculatedGeomInfo = "";
-        let lastInputtedFeatureName = ""; // Biến phụ hỗ trợ gợi ý đồng bộ tên file phiên làm việc
-
         map.on(L.Draw.Event.CREATED, function (event) {
-            tempDrawnLayer = event.layer;
-            tempDrawnType = event.layerType;
-            
-            if (tempDrawnType === 'marker') {
-                let latlng = tempDrawnLayer.getLatLng();
-                calculatedGeomInfo = `Tọa độ vị trí: ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
-            } else if (tempDrawnType === 'polyline') {
-                let latlngs = tempDrawnLayer.getLatLngs(); var distance = 0;
+            var layer = event.layer; var type = event.layerType; let popupContent = "";
+            if (type === 'marker') {
+                var latlng = layer.getLatLng();
+                popupContent = `<b>Tọa độ điểm vẽ:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
+            } else if (type === 'polyline') {
+                var latlngs = layer.getLatLngs(); var distance = 0;
                 for (var i = 0; i < latlngs.length - 1; i++) { distance += latlngs[i].distanceTo(latlngs[i+1]); }
-                calculatedGeomInfo = `Độ dài đo đạc: ${(distance >= 1000) ? (distance/1000).toFixed(2) + ' km' : distance.toFixed(1) + ' m'}`;
-            } else if (tempDrawnType === 'polygon') {
-                let latlngs = tempDrawnLayer.getLatLngs()[0]; var area = L.GeometryUtil.geodesicArea(latlngs);
-                calculatedGeomInfo = `Diện tích phân vùng: ${(area >= 1000000) ? (area/1000000).toFixed(2) + ' km²' : area.toFixed(1) + ' m²'}`;
+                popupContent = `<b>Độ dài tuyến:</b> ${(distance >= 1000) ? (distance/1000).toFixed(2) + ' km' : distance.toFixed(1) + ' m'}`;
+            } else if (type === 'polygon') {
+                var latlngs = layer.getLatLngs()[0]; var area = L.GeometryUtil.geodesicArea(latlngs);
+                popupContent = `<b>Diện tích vùng:</b> ${(area >= 1000000) ? (area/1000000).toFixed(2) + ' km²' : area.toFixed(1) + ' m²'}`;
             }
-            
-            document.getElementById('frm-feature-attr').reset();
-            $('#feature-attributes-modal').addClass('visible');
-            $('#custom-draw-marker-btn, #custom-draw-line-btn, #custom-draw-poly-btn').removeClass('btn-active'); 
+            layer.bindPopup(popupContent).addTo(drawnItems); layer.openPopup();
+            $('#custom-draw-marker-btn, #custom-draw-line-btn, #custom-draw-poly-btn').removeClass('btn-active'); $('#custom-export-kml-btn').show();
             hideDrawHelperUI();
         });
 
-        /* --- THỐNG NHẤT VÀ ĐỒNG BỘ CƠ CHẾ LƯU: ĐƠN LẺ POPUP HOẶC TOÀN BỘ PHIÊN LÀM VIỆC --- */
-        $('#btn-save-feature-attr').click(function() {
-            if (!tempDrawnLayer) return;
-            const featureName = document.getElementById('attr-feature-name').value.trim() || "DoiTuong_ChuaDatTen";
-            const featureStatus = document.getElementById('attr-feature-status').value.trim() || "Bình thường";
-            const featureNote = document.getElementById('attr-feature-note').value.trim() || "Không có.";
-            
-            lastInputtedFeatureName = featureName; // Ghi nhận tên phục vụ đồng bộ cấu trúc lưu phiên
-            const uniqueId = 'btn-cloud-' + Date.now();
-            
-            if (!tempDrawnLayer.feature) { tempDrawnLayer.feature = { type: "Feature", properties: {} }; }
-            tempDrawnLayer.feature.properties.name = featureName;
-            tempDrawnLayer.feature.properties.status = featureStatus;
-            tempDrawnLayer.feature.properties.note = featureNote;
-            tempDrawnLayer.feature.properties.geomInfo = calculatedGeomInfo;
-            tempDrawnLayer.feature.properties.description = `Hiện trạng: ${featureStatus} | Ghi chú: ${featureNote} | ${calculatedGeomInfo}`;
-            
-            const popupContent = `
-                <div style="font-size:13px; line-height:1.4; width:220px;">
-                    <strong style="color:#28a745; font-size:14px;">${featureName}</strong><br/>
-                    <b>Hiện trạng:</b> ${featureStatus}<br/>
-                    <b>Ghi chú:</b> ${featureNote}<br/>
-                    <hr style="border:0; border-top:1px dashed #ccc; margin:6px 0;">
-                    <span style="color:#666; font-size:11px; display:block; margin-bottom:5px;">${calculatedGeomInfo}</span>
-                    <button class="btn-popup-cloud-save" id="${uniqueId}">☁️ Lưu lên Cloud</button>
-                </div>
-            `;
-            
-            tempDrawnLayer.bindPopup(popupContent).addTo(drawnItems); 
-            tempDrawnLayer.openPopup();
-            
-            tempDrawnLayer.on('popupopen', function() {
-                const btnSave = document.getElementById(uniqueId);
-                if (btnSave) {
-                    if(tempDrawnLayer.feature.properties.isSavedOnCloud) {
-                        $(`#${uniqueId}`).addClass('saved').text('✓ Đã lưu Cloud').attr('disabled', true);
-                        return;
-                    }
-                    btnSave.onclick = function(e) {
-                        e.preventDefault(); L.DomEvent.stopPropagation(e);
-                        executeSingleFeatureCloudSave(tempDrawnLayer, uniqueId);
-                    };
-                }
-            });
-            
-            $('#custom-export-kml-btn').show();
-            $('#feature-attributes-modal').removeClass('visible');
-            tempDrawnLayer = null;
-            showToast("Đã nhận thuộc tính đối tượng. Nhấp vào hình vẽ để Lưu lên Cloud nhanh!", "success");
-        });
-
-        // 1. Hàm Lưu Đối Tượng Đơn Lẻ: Thống nhất cấu trúc tên file theo nội dung nhập tại Form vẽ
-        function executeSingleFeatureCloudSave(layer, buttonId) {
-            const props = layer.feature.properties;
-            // Loại bỏ ký tự đặc biệt khỏi tên để cấu trúc file KML chuẩn hóa sạch sẽ
-            const sanitizedName = props.name.replace(/[^a-zA-Z0-9_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẬỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲÝYỶỸửữựỳýyỷỹ\s]/g, "").replace(/\s+/g, "_");
-            const fileName = `${sanitizedName}_Feature`;
-            
-            toggleLoading(true);
-            $(`#${buttonId}`).text('Đang đẩy lên...');
-
-            let kml = `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n<name>${props.name}</name>\n<description><![CDATA[${props.description}]]></description>\n`;
-            kml += `  <Placemark>\n    <name>${props.name}</name>\n    <description><![CDATA[${props.description}]]></description>\n`;
-            
-            if (layer instanceof L.Marker) {
-                let pt = layer.getLatLng(); kml += `    <Point>\n      <coordinates>${pt.lng},${pt.lat},0</coordinates>\n    </Point>\n`;
-            } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-                kml += `    <LineString>\n      <coordinates>\n`; layer.getLatLngs().forEach(pt => { kml += `        ${pt.lng},${pt.lat},0\n`; }); kml += `      </coordinates>\n    </LineString>\n`;
-            } else if (layer instanceof L.Polygon) {
-                kml += `    <Polygon>\n      <outerBoundaryIs>\n        <LinearRing>\n          <coordinates>\n`;
-                let pts = layer.getLatLngs()[0]; pts.forEach(pt => { kml += `            ${pt.lng},${pt.lat},0\n`; }); kml += `            ${pts[0].lng},${pts[0].lat},0\n`;
-                kml += `          </coordinates>\n        </LinearRing>\n      </outerBoundaryIs>\n    </Polygon>\n`;
-            }
-            kml += `  </Placemark>\n</Document>\n</kml>`;
-
-            fetch(APPS_SCRIPT_URL, {
-                method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ action: "saveFile", fileName: fileName, kmlContent: kml })
-            })
-            .then(() => {
-                toggleLoading(false);
-                layer.feature.properties.isSavedOnCloud = true;
-                $(`#${buttonId}`).addClass('saved').text('✓ Đã lưu Cloud').attr('disabled', true);
-                showToast(`Đã lưu tệp lẻ "${fileName}.kml" lên Cloud Drive!`, "success");
-            })
-            .catch(err => {
-                console.error(err); toggleLoading(false); $(`#${buttonId}`).text('☁️ Thử lại');
-                showToast("Lỗi kết nối máy chủ Cloud.", "error");
-            });
-        }
-
-        // 2. Hàm Lưu Toàn Bộ Phiên Làm Việc: Đồng bộ cấu trúc tên file theo đối tượng cuối cùng hoặc tùy biến
         $('#custom-export-kml-btn').click(function(e) {
             e.preventDefault(); if (drawnItems.getLayers().length === 0) { showToast("Không tìm thấy dữ liệu tự vẽ nào để xuất.", "error"); return; }
-            $('#save-modal-title').text("Đóng gói & Lưu toàn bộ phiên thực địa");
-            
-            // Tự động đồng bộ hóa cấu trúc đặt tên file phiên theo đối tượng vẽ gần nhất
-            const suggestedSessionName = lastInputtedFeatureName ? `${lastInputtedFeatureName.replace(/[^a-zA-Z0-9_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẬỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲÝYỶỸửữựỳýyỷỹ\s]/g, "").replace(/\s+/g, "_")}_Session` : "PhienLamViec_ThucDia";
-            $('#kml-filename').val(suggestedSessionName);
-            $('#kml-description').val(`Phiên làm việc chứa tổng số ${drawnItems.getLayers().length} đối tượng đo đạc hiện trường.`);
-            
-            $('#btn-confirm-save-drive').off('click').on('click', executeSaveDrawingsToDrive); 
-            $('#save-kml-modal').addClass('visible');
+            $('#save-modal-title').text("Lưu dữ liệu đo vẽ"); $('#save-modal-desc-label').text("Mô tả nội dung đo vẽ:");
+            $('#kml-filename').val(""); 
+            $('#kml-description').val("");
+            $('#btn-confirm-save-drive').off('click').on('click', executeSaveDrawingsToDrive); $('#save-kml-modal').addClass('visible');
         });
 
         function executeSaveDrawingsToDrive() {
             var fileName = $('#kml-filename').val().trim(); var description = $('#kml-description').val().trim() || "Không có mô tả chi tiết.";
-            if (!fileName) { alert("Vui lòng nhập tên file để hệ thống đóng gói phiên làm việc!"); return; }
+            
+            if (!fileName) { 
+                alert("Vui lòng nhập tên file theo cấu trúc gợi ý để lưu trữ!"); 
+                return; 
+            }
+            
             if (APPS_SCRIPT_URL.includes('THAY_URL_APPS_SCRIPT')) { alert("Bạn chưa cấu hình URL Apps Script!"); return; }
             $('#save-kml-modal').removeClass('visible'); toggleLoading(true);
 
             let kml = `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n<name>${fileName}</name>\n<description><![CDATA[${description}]]></description>\n`;
             drawnItems.eachLayer(function(layer) {
-                let name = layer.feature?.properties?.name || "DoiTuong_ChuaDatTen";
-                let desc = layer.feature?.properties?.description || description;
                 if (layer instanceof L.Marker) {
-                    let pt = layer.getLatLng(); kml += `  <Placemark>\n    <name>${name}</name>\n    <description><![CDATA[${desc}]]></description>\n    <Point>\n      <coordinates>${pt.lng},${pt.lat},0</coordinates>\n    </Point>\n  </Placemark>\n`;
+                    let pt = layer.getLatLng();
+                    kml += `  <Placemark>\n    <name>Diem khao sat thuc dia</name>\n    <description><![CDATA[Mô tả: ${description}]]></description>\n    <Point>\n      <coordinates>${pt.lng},${pt.lat},0</coordinates>\n    </Point>\n  </Placemark>\n`;
                 } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-                    kml += `  <Placemark>\n    <name>${name}</name>\n    <description><![CDATA[${desc}]]></description>\n    <LineString>\n      <coordinates>\n`; layer.getLatLngs().forEach(pt => { kml += `        ${pt.lng},${pt.lat},0\n`; }); kml += `      </coordinates>\n    </LineString>\n  </Placemark>\n`;
+                    kml += `  <Placemark>\n    <name>Duong do ve</name>\n    <description><![CDATA[Mô tả: ${description}]]></description>\n    <LineString>\n      <coordinates>\n`;
+                    layer.getLatLngs().forEach(pt => { kml += `        ${pt.lng},${pt.lat},0\n`; });
+                    kml += `      </coordinates>\n    </LineString>\n  </Placemark>\n`;
                 } else if (layer instanceof L.Polygon) {
-                    kml += `  <Placemark>\n    <name>${name}</name>\n    <description><![CDATA[${desc}]]></description>\n    <Polygon>\n      <outerBoundaryIs>\n        <LinearRing>\n          <coordinates>\n`;
-                    let pts = layer.getLatLngs()[0]; pts.forEach(pt => { kml += `            ${pt.lng},${pt.lat},0\n`; }); kml += `            ${pts[0].lng},${pts[0].lat},0\n`; kml += `          </coordinates>\n        </LinearRing>\n      </outerBoundaryIs>\n    </Polygon>\n  </Placemark>\n`;
+                    kml += `  <Placemark>\n    <name>Vung do dac thuc dia</name>\n    <description><![CDATA[Mô tả: ${description}]]></description>\n    <Polygon>\n      <outerBoundaryIs>\n        <LinearRing>\n          <coordinates>\n`;
+                    let pts = layer.getLatLngs()[0]; pts.forEach(pt => { kml += `            ${pt.lng},${pt.lat},0\n`; });
+                    kml += `            ${pts[0].lng},${pts[0].lat},0\n`; kml += `          </coordinates>\n        </LinearRing>\n      </outerBoundaryIs>\n    </Polygon>\n  </Placemark>\n`;
                 }
             });
             kml += `</Document>\n</kml>`; sendDataToAppsScript(fileName, kml);
@@ -1373,8 +1100,8 @@
                 method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "saveFile", fileName: fileName, kmlContent: contentPayload })
             })
-            .then(() => { toggleLoading(false); showToast(`Đã đồng bộ lưu gói phiên "${fileName}.kml" lên Cloud thành công!`, "success"); })
-            .catch(err => { console.error(err); toggleLoading(false); showToast("Lỗi trong quá trình đẩy gói phiên làm việc lên hệ thống.", "error"); });
+            .then(() => { toggleLoading(false); showToast("Đã gửi yêu cầu lưu file thành công!", "success"); })
+            .catch(err => { console.error(err); toggleLoading(false); showToast("Lỗi trong quá trình kết nối API gửi file.", "error"); });
         }
 
         function toggleLoading(isLoading) { document.getElementById('loading-spinner').style.display = isLoading ? 'block' : 'none'; }
@@ -1384,12 +1111,19 @@
         }
         
         $('#custom-browse-drive-btn').click(function(e) {
-            e.preventDefault(); $('#drive-search-input').val(''); $('#drive-browser-modal').addClass('visible'); loadDriveFilesList();
+            e.preventDefault();
+            $('#drive-search-input').val('');
+            $('#drive-browser-modal').addClass('visible');
+            loadDriveFilesList();
         });
 
         function loadDriveFilesList() {
             $('#drive-files-list').html('<p style="text-align:center; color:#888;">Đang kết nối thư mục dữ liệu...</p>');
-            fetch(`${APPS_SCRIPT_URL}?action=listFiles`, { method: 'GET', redirect: 'follow' })
+            
+            fetch(`${APPS_SCRIPT_URL}?action=listFiles`, {
+                method: 'GET',
+                redirect: 'follow'
+            })
             .then(response => response.json())
             .then(data => {
                 if(data.status === "success" && data.files && data.files.length > 0) {
@@ -1413,7 +1147,8 @@
                 }
             })
             .catch(err => {
-                console.error(err); $('#drive-files-list').html('<p style="text-align:center; color:#d32f2f; font-size:13px; padding: 10px;">Không thể tải danh sách. Hãy kiểm tra cài đặt thư mục Google Drive.</p>');
+                console.error(err);
+                $('#drive-files-list').html('<p style="text-align:center; color:#d32f2f; font-size:13px; padding: 10px;">Không thể tải danh sách. Hãy kiểm tra cài đặt thư mục Google Drive.</p>');
             });
         }
 
@@ -1421,38 +1156,74 @@
             var keyword = $(this).val().toLowerCase().trim();
             $('.drive-file-item').each(function() {
                 var fileName = $(this).find('span').text().toLowerCase();
-                if (fileName.indexOf(keyword) > -1) { $(this).show(); } else { $(this).hide(); }
+                if (fileName.indexOf(keyword) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
             });
         });
 
         function clearAllExternalLayers() {
-            if (extState.kmzIndividualLayers.length === 0) { showToast("Không có lớp ngoại vi nào đang mở.", "info"); return; }
+            if (extState.kmzIndividualLayers.length === 0) {
+                showToast("Không có lớp ngoại vi nào đang mở.", "info");
+                return;
+            }
             extState.kmzIndividualLayers.forEach(l => map.removeLayer(l.layer));
-            extState.kmzIndividualLayers = []; externalLayersNode.children = []; refreshLayerTreeControl();
-            $('.drive-select-file').prop('checked', false); showToast("Đã xóa sạch toàn bộ các lớp bản đồ ngoại vi.", "success");
+            extState.kmzIndividualLayers = [];
+            externalLayersNode.children = [];
+            refreshLayerTreeControl();
+            $('.drive-select-file').prop('checked', false);
+            showToast("Đã xóa sạch toàn bộ các lớp bản đồ ngoại vi.", "success");
         }
 
+        // --- HÀM BỔ TRỢ: TÍNH TOÁN KHOẢNG ĐỆM PHÙ HỢP TỪNG THIẾT BỊ (MOBILE/DESKTOP) ---
         function getAdaptiveBoundsPadding() {
-            return window.innerWidth <= 767 ? { paddingTopLeft: [15, 90], paddingBottomRight: [15, 25] } : { paddingTopLeft: [45, 85], paddingBottomRight: [45, 45] };
+            const isMobile = window.innerWidth <= 767;
+            if (isMobile) {
+                return {
+                    paddingTopLeft: [15, 90],   // Đệm lề trái 15px, lề trên 90px (Tránh thanh tìm kiếm đè lên)
+                    paddingBottomRight: [15, 25] // Đệm lề phải 15px, lề dưới 25px
+                };
+            } else {
+                return {
+                    paddingTopLeft: [45, 85],   // Không gian rộng rãi trên Desktop
+                    paddingBottomRight: [45, 45]
+                };
+            }
         }
 
         async function loadSelectedDriveFiles() {
             const selectedCheckboxes = $('.drive-select-file:checked');
-            if (selectedCheckboxes.length === 0) { showToast("Vui lòng tích chọn ít nhất một lớp bản đồ để nạp!", "error"); return; }
-            $('#drive-browser-modal').removeClass('visible'); toggleLoading(true);
-            const combinedBounds = L.latLngBounds(); let successCount = 0;
+            if (selectedCheckboxes.length === 0) {
+                showToast("Vui lòng tích chọn ít nhất một lớp bản đồ để nạp!", "error");
+                return;
+            }
+            
+            $('#drive-browser-modal').removeClass('visible');
+            toggleLoading(true);
+            
+            const combinedBounds = L.latLngBounds();
+            let successCount = 0;
             
             for (let i = 0; i < selectedCheckboxes.length; i++) {
-                const cb = $(selectedCheckboxes[i]); const fileId = cb.data('id'); const fileName = cb.data('name');
+                const cb = $(selectedCheckboxes[i]);
+                const fileId = cb.data('id');
+                const fileName = cb.data('name');
+                
                 if (extState.kmzIndividualLayers.some(l => l.name === fileName)) {
-                    successCount++; const existingLayer = extState.kmzIndividualLayers.find(l => l.name === fileName).layer;
-                    if (existingLayer.getBounds && existingLayer.getBounds().isValid()) { combinedBounds.extend(existingLayer.getBounds()); }
+                    successCount++;
+                    const existingLayer = extState.kmzIndividualLayers.find(l => l.name === fileName).layer;
+                    if (existingLayer.getBounds && existingLayer.getBounds().isValid()) {
+                        combinedBounds.extend(existingLayer.getBounds());
+                    }
                     continue;
                 }
                 
                 try {
                     const response = await fetch(`${APPS_SCRIPT_URL}?action=getFile&id=${fileId}`, { method: 'GET', redirect: 'follow' });
                     const data = await response.json();
+                    
                     if(data.status === "success") {
                         let dom; let kmzFiles = {};
                         if (fileName.toLowerCase().endsWith('.kmz')) {
@@ -1460,21 +1231,41 @@
                             const kmlFile = Object.keys(zip.files).find(n => n.toLowerCase().endsWith('.kml'));
                             if (!kmlFile) throw new Error("Không tìm thấy dữ liệu cấu trúc KML bên trong.");
                             dom = (new DOMParser()).parseFromString(await zip.file(kmlFile).async('string'), 'text/xml');
+                            
                             const fileKeys = Object.keys(zip.files);
                             for (const relativePath of fileKeys) {
                                 const zipEntry = zip.files[relativePath];
-                                if (!zipEntry.dir && relativePath !== kmlFile) { kmzFiles[relativePath] = await zipEntry.async('base64'); }
+                                if (!zipEntry.dir && relativePath !== kmlFile) {
+                                    kmzFiles[relativePath] = await zipEntry.async('base64');
+                                }
                             }
-                        } else { dom = (new DOMParser()).parseFromString(data.content, 'text/xml'); }
+                        } else {
+                            dom = (new DOMParser()).parseFromString(data.content, 'text/xml');
+                        }
+                        
                         processAndAppendParsedLayer(dom, fileName, kmzFiles, combinedBounds, false);
                         successCount++;
                     }
-                } catch (err) { console.error(`Lỗi khi nạp file ${fileName}:`, err); }
+                } catch (err) {
+                    console.error(`Lỗi khi nạp file ${fileName}:`, err);
+                }
             }
             
             refreshLayerTreeControl();
-            if (combinedBounds.isValid()) { const pad = getAdaptiveBoundsPadding(); map.fitBounds(combinedBounds, { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true, duration: 1.2 }); }
-            toggleLoading(false); showToast(`Đã nạp thành công đồng thời ${successCount} lớp dữ liệu bản đồ!`, "success");
+            
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI NẠP NHIỀU FILE ---
+            if (combinedBounds.isValid()) {
+                const pad = getAdaptiveBoundsPadding();
+                map.fitBounds(combinedBounds, {
+                    paddingTopLeft: pad.paddingTopLeft,
+                    paddingBottomRight: pad.paddingBottomRight,
+                    animate: true,
+                    duration: 1.2
+                });
+            }
+            
+            toggleLoading(false);
+            showToast(`Đã nạp thành công đồng thời ${successCount} lớp dữ liệu bản đồ!`, "success");
         }
 
         function debounce(func, wait) { let timeout; return function(...args) { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), wait); }; }
@@ -1484,14 +1275,17 @@
         function hideWeatherInfoPanel() { document.getElementById('weather-info').classList.add('hidden'); document.getElementById('info-btn').classList.remove('btn-active'); }
         
         function toggleWeatherInfo() { 
-            if (extState.lastWeatherData) { const isHidden = document.getElementById('weather-info').classList.toggle('hidden'); $('#info-btn').toggleClass('btn-active', !isHidden); } 
-            else { showToast('Vui lòng chọn địa điểm hoặc click bản đồ để hệ thống ghi nhận vị trí trước khi xem thời tiết.', 'info'); } 
+            if (extState.lastWeatherData) { 
+                const isHidden = document.getElementById('weather-info').classList.toggle('hidden'); 
+                $('#info-btn').toggleClass('btn-active', !isHidden); 
+            } else { 
+                showToast('Vui lòng chọn địa điểm hoặc click bản đồ để hệ thống ghi nhận vị trí trước khi xem thời tiết.', 'info'); 
+            } 
         }
         $('#info-btn').click(toggleWeatherInfo);
 
         async function getWeather(lat, lng, locationName) {
           try {
-            localStorage.setItem('eq_last_session_weather', JSON.stringify({ lat, lng, name: locationName }));
             const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${extState.openWeatherApiKey}&units=metric&lang=vi&cnt=40`;
             const forecastResponse = await fetch(forecastUrl); const forecastData = await forecastResponse.json();
             if (!forecastResponse.ok || !forecastData.list?.length) throw new Error('Failed to fetch weather');
@@ -1506,7 +1300,6 @@
               <p>Độ ẩm: ${current.main.humidity}% | Gió: ${current.wind.speed} m/s | Áp suất: ${current.main.pressure} hPa</p>
               <div class="weather-tab-container">
                  <button class="weather-tab-btn active" onclick="switchWeatherView('list')">📋 Danh sách</button>
-                 <button class="weather-tab-btn" onclick="switchWeatherView('combo')">📊 Hợp phần (Mưa & Nhiệt)</button>
                  <button class="weather-tab-btn" onclick="switchWeatherView('rain')">🌧️ Đồ thị Mưa</button>
                  <button class="weather-tab-btn" onclick="switchWeatherView('humidity')">💧 Độ ẩm</button>
                  <button class="weather-tab-btn" onclick="switchWeatherView('pressure')">📈 Áp suất</button>
@@ -1538,20 +1331,7 @@
             listArea.style.display = 'none'; chartArea.style.display = 'block';
             const ctx = document.getElementById('weatherCanvasNode').getContext('2d'); const dataPoints = extState.lastWeatherData.list.slice(0, 16);
             const labels = dataPoints.map(item => { const d = new Date(item.dt * 1000); return d.getHours() + 'h ' + d.getDate() + '/' + (d.getMonth() + 1); });
-            
-            if (type === 'combo') {
-                extState.currentWeatherChartInstance = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            { label: 'Xác suất mưa (%)', data: dataPoints.map(item => item.pop * 100), backgroundColor: 'rgba(54, 162, 235, 0.4)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, yAxisID: 'yRain', type: 'bar' },
-                            { label: 'Nhiệt độ (°C)', data: dataPoints.map(item => item.main.temp), borderColor: 'rgba(255, 99, 132, 1)', backgroundColor: 'transparent', tension: 0.3, yAxisID: 'yTemp', type: 'line' }
-                        ]
-                    },
-                    options: { responsive: true, scales: { yRain: { type: 'linear', position: 'left', min: 0, max: 100, title: { display: true, text: 'Khả năng mưa (%)', font: { size: 10 } } }, yTemp: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Nhiệt độ (°C)', font: { size: 10 } } } } }
-                });
-            } else if (type === 'rain') {
+            if (type === 'rain') {
                 extState.currentWeatherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Xác suất mưa (%)', data: dataPoints.map(item => item.pop * 100), backgroundColor: 'rgba(0, 123, 255, 0.6)', borderColor: 'rgba(0, 123, 255, 1)', borderWidth: 1 }] }, options: { responsive: true, scales: { y: { min: 0, max: 100 } } } });
             } else if (type === 'humidity') {
                 extState.currentWeatherChartInstance = new Chart(ctx, { type: 'line', data: { labels: labels, datasets: [{ label: 'Độ ẩm không khí (%)', data: dataPoints.map(item => item.main.humidity), backgroundColor: 'rgba(40, 167, 69, 0.2)', borderColor: 'rgba(40, 167, 69, 1)', tension: 0.3, fill: true }] }, options: { responsive: true, scales: { y: { min: 0, max: 100 } } } });
@@ -1598,9 +1378,11 @@
         $('#search-input').on('input', function() { $('#main-search-clear').toggle($(this).val().length > 0); });
         
         $('#main-search-clear').click(function() { 
-            document.getElementById('search-input').value = ''; $(this).hide(); 
+            document.getElementById('search-input').value = ''; 
+            $(this).hide(); 
             if (extState.searchMarker) { map.removeLayer(extState.searchMarker); extState.searchMarker = null; } 
-            hideWeatherInfoPanel(); showToast("Đã xóa dữ liệu tìm kiếm", "success"); 
+            hideWeatherInfoPanel(); 
+            showToast("Đã xóa dữ liệu tìm kiếm", "success"); 
         });
         
         $('.inner-clear-btn').click(function() { const targetId = $(this).data('target'); document.getElementById(targetId).value = ''; if(targetId === 'directions-start-input') extState.startCoord = null; if(targetId === 'directions-end-input') extState.endCoord = null; });
@@ -1608,7 +1390,8 @@
 
         $('#btn-save-route-kml').click(function(e) {
             e.preventDefault(); if (!extState.currentActiveRouteGeo || extState.currentActiveRouteGeo.length === 0) { showToast("Không tìm thấy dữ liệu lộ trình hành trình để xuất file.", "error"); return; }
-            $('#save-modal-title').text("Lưu lộ trình (KML)"); $('#save-modal-desc-label').text("Mô tả tuyến đường:"); $('#kml-filename').val(""); $('#kml-description').val("");
+            $('#save-modal-title').text("Lưu lộ trình (KML)"); $('#save-modal-desc-label').text("Mô tả tuyến đường:"); $('#kml-filename').val("");
+            $('#kml-description').val("");
             $('#btn-confirm-save-drive').off('click').on('click', executeSaveRouteToDrive); $('#save-kml-modal').addClass('visible');
         });
 
@@ -1679,6 +1462,7 @@
 
         $('#custom-directions-btn').click(function(e) { e.preventDefault(); if (extState.userGPSPosition && !document.getElementById('directions-start-input').value.trim()) { document.getElementById('directions-start-input').value = 'Vị trí của tôi'; } toggleDirectionsModal(true); });
 
+        // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH THÔNG MINH CHO LỘ TRÌNH TÌM ĐƯỜNG ---
         $('#get-directions-btn').click(async function() {
             if (extState.routingControl) { map.removeControl(extState.routingControl); extState.routingControl = null; }
             document.getElementById('route-summary-modal').style.display = 'none'; extState.currentActiveRouteGeo = null; extState.currentActiveInstructions = null;
@@ -1691,18 +1475,29 @@
             };
             try {
                 const startLatLng = await geocodeTarget(startVal, extState.startCoord); const endLatLng = await geocodeTarget(endVal, extState.endCoord);
+                
+                // Thiết lập tùy biến đệm lề cho lộ trình tuyến đường di chuyển
                 const pad = getAdaptiveBoundsPadding();
                 extState.routingControl = L.Routing.control({ 
                     waypoints: [startLatLng, endLatLng], 
                     router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }), 
-                    show: false, addWaypoints: false, fitSelectedRoutes: false,
+                    show: false, 
+                    addWaypoints: false, 
+                    fitSelectedRoutes: false, // Tắt tự động fit mặc định để áp dụng logic đệm lề tùy biến
                     lineOptions: { styles: [{ color: '#28a745', opacity: 0.8, weight: 6 }] } 
                 }).addTo(map);
                 
                 extState.routingControl.on('routesfound', function(e) {
                     const route = e.routes[0]; const summary = route.summary; extState.currentActiveRouteGeo = route.coordinates; extState.currentActiveInstructions = route.instructions;
                     document.getElementById('summary-distance').textContent = (summary.totalDistance / 1000).toFixed(2) + ' km'; document.getElementById('summary-time').textContent = Math.round(summary.totalTime / 60) + ' phút'; document.getElementById('route-summary-modal').style.display = 'block'; toggleLoading(false); toggleDirectionsModal(false);
-                    const routeBounds = L.latLngBounds(route.coordinates); map.fitBounds(routeBounds, { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true });
+                    
+                    // Thực thi căn chỉnh bao trọn tuyến đường di chuyển
+                    const routeBounds = L.latLngBounds(route.coordinates);
+                    map.fitBounds(routeBounds, {
+                        paddingTopLeft: pad.paddingTopLeft,
+                        paddingBottomRight: pad.paddingBottomRight,
+                        animate: true
+                    });
                 });
                 extState.routingControl.on('routingerror', function() { showToast("Không tìm thấy đường đi khả dụng.", "error"); toggleLoading(false); });
             } catch(err) { showToast("Lỗi phân tích cú pháp địa điểm.", "error"); toggleLoading(false); }
@@ -1713,56 +1508,33 @@
         dropzone.onclick = () => fileInput.click();
         dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
         dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-        dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFieldImageFile(e.dataTransfer.files[0]); });
-        fileInput.onchange = (e) => { if (e.target.files[0]) handleFieldImageFile(e.target.files[0]); };
+        dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleOcrImageFile(e.dataTransfer.files[0]); });
+        fileInput.onchange = (e) => { if (e.target.files[0]) handleOcrImageFile(e.target.files[0]); };
 
-        function handleFieldImageFile(file) { 
-            if (!file.type.startsWith('image/')) return; 
-            document.getElementById('ocrResultSection').style.display = 'none'; toggleLoading(true);
-            
-            EXIF.getData(file, function() {
-                const latData = EXIF.getTag(this, "GPSLatitude"); const latRef = EXIF.getTag(this, "GPSLatitudeRef");
-                const lngData = EXIF.getTag(this, "GPSLongitude"); const lngRef = EXIF.getTag(this, "GPSLongitudeRef");
-
-                if (latData && lngData) {
-                    const convertEXIFToDecimal = (deg, min, sec, ref) => {
-                        let dd = deg + (min / 60) + (sec / 3600); return (ref === "S" || ref === "W") ? dd * -1 : dd;
-                    };
-                    const lat = convertEXIFToDecimal(latData[0], latData[1], latData[2], latRef);
-                    const lng = convertEXIFToDecimal(lngData[0], lngData[1], lngData[2], lngRef);
-                    const coordsStr = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-
-                    document.getElementById('displayCoords').innerText = coordsStr;
-                    document.getElementById('mapsLink').href = `http://googleusercontent.com/maps.google.com/3{lat},${lng}`;
-                    document.getElementById('attr-gps').innerText = `${lat.toFixed(6)}°N, ${lng.toFixed(6)}°E`;
-                    document.getElementById('ocrResultSection').style.display = 'block';
-
-                    if (extState.ocrMarker) map.removeLayer(extState.ocrMarker);
-                    const orangeIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41] });
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const popContent = `
-                            <div style="text-align:center; font-size:12px;">
-                                <b>Mốc ảnh hiện trường EXIF</b><br/>
-                                <img src="${e.target.result}" style="width:100%; max-height:120px; object-fit:cover; margin-top:5px; border-radius:4px;"/><br/>
-                                <span>Tọa độ: ${coordsStr}</span>
-                            </div>`;
-                        extState.ocrMarker = L.marker([lat, lng], { icon: orangeIcon }).addTo(map).bindPopup(popContent).openPopup();
-                    };
-                    reader.readAsDataURL(file);
-                    
-                    map.flyTo([lat, lng], 16); toggleLoading(false);
-                    setTimeout(() => { toggleOcrModal(false); }, 1200);
-                    showToast("Đã trích xuất vị trí tọa độ EXIF ảnh thành công!", "success");
-                    getWeather(lat, lng, `Mốc ảnh hiện trường`);
-                } else {
-                    toggleLoading(false);
-                    alert("Ảnh không chứa thẻ định vị GPS ẩn. Vui lòng bật định vị của máy khi chụp ảnh mốc.");
-                }
-            });
+        function handleOcrImageFile(file) { if (!file.type.startsWith('image/')) return; document.getElementById('ocrResultSection').style.display = 'none'; toggleLoading(true); const reader = new FileReader(); reader.onload = (e) => processOcrEngine(e.target.result); reader.readAsDataURL(file); }
+        async function processOcrEngine(imageSrc) {
+            const img = new Image();
+            img.onload = async function() {
+                const canvas = document.getElementById('helperCanvas'); const ctx = canvas.getContext('2d'); canvas.width = img.width; canvas.height = img.height; ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height); const data = imageData.data;
+                for (let i = 0; i < data.length; i += 4) { let avg = (data[i] + data[i+1] + data[i+2]) / 3; let v = (avg > 180) ? 255 : 0; data[i] = data[i+1] = data[i+2] = v; } ctx.putImageData(imageData, 0, 0);
+                try { const worker = await Tesseract.createWorker(['vie', 'eng']); const { data: { text } } = await worker.recognize(canvas.toDataURL()); parseAndDisplayOcr(text); await worker.terminate(); } catch (err) { showToast("Lỗi phân tích ảnh.", "error"); } finally { toggleLoading(false); }
+            }; img.src = imageSrc;
         }
-        $('#copyCoordsBtn').click(function() { navigator.clipboard.writeText(document.getElementById('displayCoords').innerText).then(() => { $(this).text("Đã lưu!").addClass('copied'); setTimeout(() => { $(this).text("Sao chép tọa độ").removeClass('copied'); }, 2000); }); });
+
+        function parseAndDisplayOcr(rawText) {
+            const cleanText = rawText.replace(/,/g, '.'); const latMatch = cleanText.match(/(\d{1,2}\.\d{4,10})\s?[°o0\*]?\s?N/i); const lngMatch = cleanText.match(/(\d{2,3}\.\d{4,10})\s?[°o0\*]?\s?E/i);
+            if (latMatch && lngMatch) {
+                const lat = parseFloat(latMatch[1]); const lng = parseFloat(lngMatch[1]); const coordsStr = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                document.getElementById('displayCoords').innerText = coordsStr; document.getElementById('mapsLink').href = `http://maps.google.com/?q=${lat},${lng}`; document.getElementById('attr-gps').innerText = `${lat.toFixed(6)}°N, ${lng.toFixed(6)}°E`;
+                const timeMatch = rawText.match(/\b\d{1,2}:\d{2}\b/); document.getElementById('attr-time').innerText = timeMatch ? timeMatch[0] : "Không xác định"; document.getElementById('ocrResultSection').style.display = 'block';
+                if (extState.ocrMarker) map.removeLayer(extState.ocrMarker);
+                const orangeIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41] });
+                extState.ocrMarker = L.marker([lat, lng], { icon: orangeIcon }).addTo(map).bindPopup(`<b>📍 Điểm ảnh mốc:</b><br>${coordsStr}`).openPopup(); map.flyTo([lat, lng], 15);
+                setTimeout(() => { toggleOcrModal(false); }, 1000); showToast("Đã định vị thành công mốc ảnh hiện trường!", "success"); getWeather(lat, lng, `Mốc hiện trường (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+            } else { alert("Không tìm thấy chuỗi tọa độ hợp lệ có cấu trúc dữ liệu N/E."); }
+        }
+        $('#copyCoordsBtn').click(function() { navigator.clipboard.writeText(document.getElementById('displayCoords').innerText).then(() => { $(this).text("Đã lưu!").addClass('copied'); setTimeout(() => { $(this).text("Sao chép chuỗi").removeClass('copied'); }, 2000); }); });
 
         function getCustomIcon(iconFileName) {
             const iconMap = { 'KhuDuLich': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png', 'HoDamAo': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-cyan.png', 'Thac': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', 'HangDong': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-darkblue.png', 'BaiBien': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-cyan.png', 'Dao': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png', 'KhuBTTN': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', 'Resort': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png', 'Hotel': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', 'SanBay': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-darkred.png', 'default': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png' };
@@ -1798,14 +1570,31 @@
         }
 
         function processMultipleParsedResults(results) {
-            const combinedBounds = L.latLngBounds(); externalLayersNode.children = [];
-            results.forEach(res => { processAndAppendParsedLayer(res.dom, res.name, res.files || {}, combinedBounds, false); });
-            if (combinedBounds.isValid()) { const pad = getAdaptiveBoundsPadding(); map.fitBounds(combinedBounds, { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true, duration: 1.2 }); }
-            refreshLayerTreeControl(); toggleLoading(false); showToast("Đã nạp thành công các lớp dữ liệu mới vào hệ thống!", "success");
+            const combinedBounds = L.latLngBounds();
+            externalLayersNode.children = [];
+
+            results.forEach(res => {
+                processAndAppendParsedLayer(res.dom, res.name, res.files || {}, combinedBounds, false);
+            });
+            
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI UPLOAD FILE CỤC BỘ ---
+            if (combinedBounds.isValid()) {
+                const pad = getAdaptiveBoundsPadding();
+                map.fitBounds(combinedBounds, {
+                    paddingTopLeft: pad.paddingTopLeft,
+                    paddingBottomRight: pad.paddingBottomRight,
+                    animate: true,
+                    duration: 1.2
+                });
+            }
+            refreshLayerTreeControl();
+            toggleLoading(false);
+            showToast("Đã nạp thành công các lớp dữ liệu mới vào hệ thống!", "success");
         }
 
         function processAndAppendParsedLayer(dom, layerName, kmzFiles = {}, globalBounds = null, singleMode = true) {
-            const groundOverlays = dom.getElementsByTagName('GroundOverlay'); const hasGroundOverlays = groundOverlays.length > 0;
+            const groundOverlays = dom.getElementsByTagName('GroundOverlay');
+            const hasGroundOverlays = groundOverlays.length > 0;
             let layerGroup = hasGroundOverlays ? L.layerGroup() : L.markerClusterGroup({ disableClusteringAtZoom: 16 });
 
             for (const overlay of groundOverlays) {
@@ -1819,36 +1608,73 @@
                     L.imageOverlay(imageUrl, bounds).addTo(layerGroup);
                 }
             }
-            const iconStyles = {}; const styleMaps = {}; const styles = dom.getElementsByTagName('Style');
+            const iconStyles = {}; 
+            const styleMaps = {}; 
+            const styles = dom.getElementsByTagName('Style');
+            
             for (const style of styles) {
-                const styleId = style.getAttribute('id'); const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
+                const styleId = style.getAttribute('id'); 
+                const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
                 if (styleId && iconHrefElement) {
-                    let iconHref = iconHrefElement.textContent.trim(); let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, ''); let finalIconUrl = "";
-                    if (kmzFiles[cleanHref]) { let ext = cleanHref.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; } 
-                    else {
-                        let baseName = cleanHref.split('/').pop(); let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
-                        if (foundKey) { let ext = foundKey.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; } 
-                        else if (iconHref.startsWith('http')) { finalIconUrl = iconHref; } 
-                        else { finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; }
+                    let iconHref = iconHrefElement.textContent.trim();
+                    let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, '');
+                    let finalIconUrl = "";
+
+                    if (kmzFiles[cleanHref]) {
+                        let ext = cleanHref.split('.').pop();
+                        finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`;
+                    } else {
+                        let baseName = cleanHref.split('/').pop();
+                        let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
+                        if (foundKey) {
+                            let ext = foundKey.split('.').pop();
+                            finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`;
+                        } else if (iconHref.startsWith('http')) {
+                            finalIconUrl = iconHref;
+                        } else {
+                            finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl;
+                        }
                     }
-                    iconStyles[`#${styleId}`] = L.icon({ iconUrl: finalIconUrl, iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -32] });
+                    
+                    iconStyles[`#${styleId}`] = L.icon({ 
+                        iconUrl: finalIconUrl, 
+                        iconSize: [32, 32], 
+                        iconAnchor: [16, 32], 
+                        popupAnchor: [0, -32] 
+                    });
                 }
             }
+            
             const kmlStyleMaps = dom.getElementsByTagName('StyleMap');
             for (const styleMap of kmlStyleMaps) { 
-                const styleMapId = styleMap.getAttribute('id'); const pairs = styleMap.getElementsByTagName('Pair');
+                const styleMapId = styleMap.getAttribute('id'); 
+                const pairs = styleMap.getElementsByTagName('Pair');
                 for (let j = 0; j < pairs.length; j++) {
                     let key = pairs[j].getElementsByTagName('key')[0]?.textContent;
-                    if (key === 'normal') { let normalStyleUrl = pairs[j].getElementsByTagName('styleUrl')[0]?.textContent; if (styleMapId && normalStyleUrl) styleMaps[`#${styleMapId}`] = normalStyleUrl; break; }
+                    if (key === 'normal') {
+                        let normalStyleUrl = pairs[j].getElementsByTagName('styleUrl')[0]?.textContent;
+                        if (styleMapId && normalStyleUrl) styleMaps[`#${styleMapId}`] = normalStyleUrl;
+                        break;
+                    }
+                }
+                if (!styleMaps[`#${styleMapId}`] && pairs.length > 0) {
+                    let fallbackStyleUrl = pairs[0].getElementsByTagName('styleUrl')[0]?.textContent;
+                    if (styleMapId && fallbackStyleUrl) styleMaps[`#${styleMapId}`] = fallbackStyleUrl;
                 }
             }
 
             L.geoJSON(toGeoJSON.kml(dom), {
                 style: (f) => f.properties.styleUrl && f.properties.styleUrl.includes('LineString') ? { color: '#007BFF', weight: 4 } : {},
                 pointToLayer: function (f, latlng) {
-                    let o = {}; let sUrl = f.properties.styleUrl; 
-                    if (sUrl) { sUrl = sUrl.trim(); if (styleMaps[sUrl]) sUrl = styleMaps[sUrl]; if (iconStyles[sUrl]) o.icon = iconStyles[sUrl]; }
-                    if (!o.icon) o.icon = getCustomIcon('default'); return L.marker(latlng, o);
+                    let o = {}; 
+                    let sUrl = f.properties.styleUrl; 
+                    if (sUrl) { 
+                        sUrl = sUrl.trim();
+                        if (styleMaps[sUrl]) sUrl = styleMaps[sUrl]; 
+                        if (iconStyles[sUrl]) o.icon = iconStyles[sUrl]; 
+                    }
+                    if (!o.icon) o.icon = getCustomIcon('default');
+                    return L.marker(latlng, o);
                 },
                 onEachFeature: function(f, layer) {
                     let c = ""; if (f.properties.name) c += `<b>${f.properties.name}</b>`; if (f.properties.description) c += `<br>${f.properties.description}`;
@@ -1857,86 +1683,35 @@
             });
 
             layerGroup.addTo(map);
-
-            const sliderId = 'opacity-slider-' + Date.now() + Math.floor(Math.random() * 1000);
-            const layerLabelWithControl = `
-                <span class="layer-name-text">${layerName}</span>
-                <div class="layer-opacity-container" onclick="L.DomEvent.stopPropagation(event);">
-                    <span>Độ mờ:</span>
-                    <input type="range" class="layer-opacity-slider" id="${sliderId}" min="0" max="100" value="100">
-                    <span id="val-${sliderId}">100%</span>
-                </div>`;
-
             extState.kmzIndividualLayers.push({ name: layerName, layer: layerGroup });
-            externalLayersNode.children.push({ label: layerLabelWithControl, layer: layerGroup });
+            externalLayersNode.children.push({ label: layerName, layer: layerGroup });
 
-            if (globalBounds && layerGroup.getBounds && layerGroup.getBounds().isValid()) { globalBounds.extend(layerGroup.getBounds()); }
+            if (globalBounds && layerGroup.getBounds && layerGroup.getBounds().isValid()) {
+                globalBounds.extend(layerGroup.getBounds());
+            }
 
-            setTimeout(() => {
-                const sliderInput = document.getElementById(sliderId);
-                if (sliderInput) {
-                    sliderInput.addEventListener('input', function(e) {
-                        const opacityValue = parseFloat(e.target.value) / 100;
-                        document.getElementById(`val-${sliderId}`).innerText = e.target.value + '%';
-                        layerGroup.eachLayer(function(innerLayer) {
-                            if (typeof innerLayer.setOpacity === 'function') { innerLayer.setOpacity(opacityValue); } 
-                            else if (typeof innerLayer.setStyle === 'function') { innerLayer.setStyle({ opacity: opacityValue, fillOpacity: opacityValue * 0.2 }); }
-                            else if (innerLayer instanceof L.Marker && innerLayer.getElement()) { innerLayer.setOpacity(opacityValue); }
-                        });
-                    });
-                }
-            }, 300);
-
+            // --- CẬP NHẬT: CO GIÃN KHUNG HÌNH KHÔNG GIAN THEO THIẾT BỊ KHI NẠP ĐƠN LẺ FILE ---
             if(singleMode) {
-                if (layerGroup.getBounds().isValid() && map) { const pad = getAdaptiveBoundsPadding(); map.fitBounds(layerGroup.getBounds(), { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true, duration: 1.2 }); }
-                refreshLayerTreeControl(); toggleLoading(false); showToast(`Đã nạp thành công: ${layerName}`, "success");
-            }
-        }
-
-        if (!document.getElementById('btn-mobile-layers')) {
-            const mobileBtn = document.createElement('div'); mobileBtn.id = 'btn-mobile-layers'; mobileBtn.className = 'mobile-layer-trigger';
-            mobileBtn.innerHTML = '<i class="fas fa-layer-group"></i>'; document.body.appendChild(mobileBtn);
-            mobileBtn.addEventListener('click', toggleBottomSheet);
-        }
-
-        function toggleBottomSheet() {
-            const sheet = document.getElementById('mobile-bottom-sheet'); const overlay = document.getElementById('bottom-sheet-overlay');
-            if (sheet.classList.contains('show')) { sheet.classList.remove('show'); overlay.classList.remove('show'); } 
-            else {
-                const leafletLayerContainer = document.querySelector('.leaflet-control-layers-list');
-                if (leafletLayerContainer) {
-                    document.getElementById('bottom-sheet-content').innerHTML = leafletLayerContainer.innerHTML;
-                    const inputs = document.getElementById('bottom-sheet-content').querySelectorAll('input');
-                    inputs.forEach(input => {
-                        input.addEventListener('change', function() {
-                            const originalInput = leafletLayerContainer.querySelector(`input[id="${this.id}"], input[class="${this.className}"]`);
-                            if (originalInput) originalInput.click();
-                        });
+                if (layerGroup.getBounds().isValid() && map) {
+                    const pad = getAdaptiveBoundsPadding();
+                    map.fitBounds(layerGroup.getBounds(), { 
+                        paddingTopLeft: pad.paddingTopLeft,
+                        paddingBottomRight: pad.paddingBottomRight,
+                        animate: true,
+                        duration: 1.2
                     });
                 }
-                sheet.classList.add('show'); overlay.classList.add('show');
+                refreshLayerTreeControl();
+                toggleLoading(false);
+                showToast(`Đã nạp thành công: ${layerName}`, "success");
             }
         }
-        document.getElementById('close-bottom-sheet').addEventListener('click', toggleBottomSheet);
-        document.getElementById('bottom-sheet-overlay').addEventListener('click', toggleBottomSheet);
 
         function refreshLayerTreeControl() {
-            map.removeControl(lay); lay = L.control.layers.tree(null, overlaysTree, { collapsed: window.innerWidth > 767 }); lay.addTo(map);
-            if (window.innerWidth <= 767 && document.getElementById('mobile-bottom-sheet').classList.contains('show')) {
-                const leafletLayerContainer = document.querySelector('.leaflet-control-layers-list');
-                if (leafletLayerContainer) document.getElementById('bottom-sheet-content').innerHTML = leafletLayerContainer.innerHTML;
-            }
+            map.removeControl(lay);
+            lay = L.control.layers.tree(null, overlaysTree, { collapsed: true });
+            lay.addTo(map);
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const savedWeatherSession = localStorage.getItem('eq_last_session_weather');
-            if (savedWeatherSession) {
-                try {
-                    const sessionData = JSON.parse(savedWeatherSession);
-                    getWeather(sessionData.lat, sessionData.lng, sessionData.name);
-                } catch (err) { console.error("Không thể khôi phục phiên thời tiết:", err); }
-            }
-        });
         </script>
     </body>
 </html>
