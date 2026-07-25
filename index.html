@@ -983,16 +983,16 @@
         // Danh mục lớp bản đồ: Nhóm "Điểm đến" nằm PHÍA TRÊN nhóm "Lượng mưa"
         var overlaysTree = [
             {label: '<b>Điểm đến:</b>', children: [
-                {label: "EQ_Tourism2026", layer: layer_EQ_Tourism2026},
-                {label: "VN_2026", layer: layer_VN_2026}
+                {label: "Checkin", layer: layer_EQ_Tourism2026},
+                {label: "Việt Nam quê hương", layer: layer_VN_2026}
             ]},
-            {label: '<b>Lượng mưa:</b>', children: [
+            {label: '<b>Dự báo mưa:</b>', children: [
                 {label: "Rain Viewer HD", layer: layer_RainViewerRadar},
                 {label: "Open Weather", layer: layer_OpenWeatherPrecipitation},
                 {label: "Hydro Estimator Rainfall", layer: layer_HydroEstimatorRainfall_4}
             ]},
-            {label: '<b>Mật độ lưu thông:</b>', children: [
-                {label: "Mật độ lưu thông", layer: layer_GoogleTraffic_1}
+            {label: '<b>Mật độ giao thông:</b>', children: [
+                {label: "Mật độ", layer: layer_GoogleTraffic_1}
             ]},
             externalLayersNode, 
 			{label: '<b>Bản đồ nền:</b>', children: [
@@ -1355,13 +1355,13 @@
                             }
                             if (dom) {
                                 parseAndPopulateLayerGroup(dom, layer_VN_2026, kmzFiles);
-                                showToast("Đã hiển thị mặc định lớp VN_2026 từ Google Drive", "success");
+                                showToast("Đã hiển thị", "success");
                             }
                         }
                     }
                 }
             } catch (err) {
-                console.error("Không thể tự động nạp lớp VN_2026 từ Drive: ", err);
+                console.error("Không thể tự động nạp VN_2026", err);
             }
         }
 
@@ -1398,7 +1398,6 @@
                                 parseAndPopulateLayerGroup(dom, layer_EQ_Tourism2026, kmzFiles);
                                 extState.eqTourismLoaded = true;
                                 
-                                // Zoom nhỏ lại 1 cấp độ trong khung nhìn hiện tại để trải nghiệm thị giác cân bằng
                                 map.zoomOut(1);
                                 showToast("Đã nạp và hiển thị lớp EQ_Tourism2026 thành công!", "success");
                             }
@@ -1429,10 +1428,18 @@
                 const styleId = style.getAttribute('id'); const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
                 if (styleId && iconHrefElement) {
                     let iconHref = iconHrefElement.textContent.trim(); let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, ''); let finalIconUrl = "";
-                    if (kmzFiles[cleanHref]) { let ext = cleanHref.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; } 
+                    if (kmzFiles[cleanHref]) { 
+                        let ext = cleanHref.split('.').pop().toLowerCase(); 
+                        if(ext === 'jpg') ext = 'jpeg';
+                        finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; 
+                    } 
                     else {
                         let baseName = cleanHref.split('/').pop(); let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
-                        if (foundKey) { let ext = foundKey.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; } 
+                        if (foundKey) { 
+                            let ext = foundKey.split('.').pop().toLowerCase(); 
+                            if(ext === 'jpg') ext = 'jpeg';
+                            finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; 
+                        } 
                         else if (iconHref.startsWith('http')) { finalIconUrl = iconHref; } 
                         else { finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; }
                     }
@@ -1474,7 +1481,8 @@
                         let desc = f.properties.description;
                         for (const relativePath in kmzFiles) {
                             if (desc.includes(relativePath)) {
-                                const ext = relativePath.split('.').pop();
+                                let ext = relativePath.split('.').pop().toLowerCase();
+                                if(ext === 'jpg') ext = 'jpeg';
                                 desc = desc.replace(new RegExp(relativePath, 'g'), `data:image/${ext};base64,${kmzFiles[relativePath]}`);
                             }
                         }
@@ -1743,7 +1751,7 @@
         $('#custom-locate-btn').click(function(e) {
             e.preventDefault(); if (!navigator.geolocation) { showToast("Trình duyệt không hỗ trợ định vị.", "error"); return; } toggleLoading(true);
             navigator.geolocation.getCurrentPosition(
-                (position) => { const lat = position.coords.latitude; const lng = position.coords.longitude; const latlng = L.latLng(lat, lng); extState.userGPSPosition = { lat, lng }; map.flyTo(latlng, 15, { animate: true, duration: 1.5 }); if (extState.searchMarker) map.removeLayer(extState.searchMarker); extState.searchMarker = L.marker(latlng).addTo(map).bindPopup(`<b>Vị trí của bạn</b><br><span style="font-size:0.85em;color:#666;">Tọa độ: ${lat.toFixed(6)}, ${lng.toFixed(6)}</span>`).openPopup(); toggleLoading(false); showToast("Đã định vị vị trí hiện tại", "success"); getWeather(lat, lng, "Vị trí hiện tại"); },
+                (position) => { const lat = position.coords.latitude; const lng = position.coords.longitude; const latlng = L.latLng(lat, lng); extState.userGPSPosition = { lat, lng }; map.flyTo(latlng, 15, { animate: true, duration: 1.5 }); if (extState.searchMarker) map.removeLayer(extState.searchMarker); extState.searchMarker = L.marker(latlng).addTo(map).bindPopup(`<b>Vị trí của bạn</b><br><span style="font-size:0.85em;color:#666;">Tọa độ: ${lat.toFixed(6)}, ${lat.toFixed(6)}</span>`).openPopup(); toggleLoading(false); showToast("Đã định vị vị trí hiện tại", "success"); getWeather(lat, lng, "Vị trí hiện tại"); },
                 () => { toggleLoading(false); showToast("Không nhận được tín hiệu định vị.", "error"); }, { enableHighAccuracy: true, timeout: 8000 }
             );
         });
@@ -1875,30 +1883,79 @@
             refreshLayerTreeControl(); toggleLoading(false); showToast("Đã nạp thành công các lớp dữ liệu mới vào hệ thống!", "success");
         }
 
+        // HÀM QUAN TRỌNG: ĐÃ ĐƯỢC NÂNG CẤP ĐỂ XỬ LÝ NÂNG CAO TẤT CẢ DẠNG GROUNDOVERLAY / RASTER (NHƯ DTh_Soil_PNG VÀ nf-4816_geo)
         function processAndAppendParsedLayer(dom, layerName, kmzFiles = {}, globalBounds = null, singleMode = true) {
-            const groundOverlays = dom.getElementsByTagName('GroundOverlay'); const hasGroundOverlays = groundOverlays.length > 0;
+            // 1. Tìm tất cả thẻ GroundOverlay trong KML (Kể cả lồng sâu đệ quy trong các thẻ Folder)
+            const groundOverlays = dom.getElementsByTagName('GroundOverlay'); 
+            const hasGroundOverlays = groundOverlays.length > 0;
+            
+            // Nếu tệp chứa GroundOverlay (Lớp ảnh phủ Raster), tạo L.layerGroup() chuẩn
             let layerGroup = hasGroundOverlays ? L.layerGroup() : L.markerClusterGroup({ disableClusteringAtZoom: 16 });
 
-            for (const overlay of groundOverlays) {
-                const href = overlay.getElementsByTagName('href')[0]?.textContent; const latLonBox = overlay.getElementsByTagName('LatLonBox')[0];
+            for (let i = 0; i < groundOverlays.length; i++) {
+                const overlay = groundOverlays[i];
+                const hrefElement = overlay.getElementsByTagName('href')[0] || overlay.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
+                const href = hrefElement ? hrefElement.textContent.trim() : null;
+                const latLonBox = overlay.getElementsByTagName('LatLonBox')[0];
+
                 if (href && latLonBox) {
-                    const south = parseFloat(latLonBox.getElementsByTagName('south')[0]?.textContent); const north = parseFloat(latLonBox.getElementsByTagName('north')[0]?.textContent);
-                    const east = parseFloat(latLonBox.getElementsByTagName('east')[0]?.textContent); const west = parseFloat(latLonBox.getElementsByTagName('west')[0]?.textContent);
-                    const bounds = [[south, west], [north, east]];
-                    if(globalBounds) globalBounds.extend(bounds);
-                    let imageUrl = kmzFiles[href] ? `data:image/${href.split('.').pop()};base64,${kmzFiles[href]}` : href;
-                    L.imageOverlay(imageUrl, bounds).addTo(layerGroup);
+                    const parseCoord = (tagName) => {
+                        const val = latLonBox.getElementsByTagName(tagName)[0]?.textContent;
+                        return val ? parseFloat(val.trim()) : NaN;
+                    };
+
+                    const south = parseCoord('south');
+                    const north = parseCoord('north');
+                    const east = parseCoord('east');
+                    const west = parseCoord('west');
+
+                    if (!isNaN(south) && !isNaN(north) && !isNaN(east) && !isNaN(west)) {
+                        const bounds = [[south, west], [north, east]];
+                        if (globalBounds) globalBounds.extend(bounds);
+
+                        // Xử lý nạp ảnh Base64 linh hoạt cho mọi đuôi định dạng (PNG, JPG, JPEG, WEBP, GIF)
+                        let cleanHref = href.replace(/^(\.\.\/|\.\/)/, '');
+                        let imageUrl = href;
+
+                        if (kmzFiles[cleanHref]) {
+                            let ext = cleanHref.split('.').pop().toLowerCase();
+                            if (ext === 'jpg') ext = 'jpeg';
+                            imageUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`;
+                        } else {
+                            let baseName = cleanHref.split('/').pop();
+                            let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
+                            if (foundKey) {
+                                let ext = foundKey.split('.').pop().toLowerCase();
+                                if (ext === 'jpg') ext = 'jpeg';
+                                imageUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`;
+                            }
+                        }
+
+                        // Tạo và chèn L.imageOverlay lên nhóm Layer
+                        const imgOverlay = L.imageOverlay(imageUrl, bounds, { opacity: 1.0 });
+                        imgOverlay.addTo(layerGroup);
+                    }
                 }
             }
+
+            // 2. Xử lý các Style / StyleMap / Marker Vector
             const iconStyles = {}; const styleMaps = {}; const styles = dom.getElementsByTagName('Style');
             for (const style of styles) {
                 const styleId = style.getAttribute('id'); const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
                 if (styleId && iconHrefElement) {
                     let iconHref = iconHrefElement.textContent.trim(); let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, ''); let finalIconUrl = "";
-                    if (kmzFiles[cleanHref]) { let ext = cleanHref.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; } 
+                    if (kmzFiles[cleanHref]) { 
+                        let ext = cleanHref.split('.').pop().toLowerCase(); 
+                        if (ext === 'jpg') ext = 'jpeg';
+                        finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; 
+                    } 
                     else {
                         let baseName = cleanHref.split('/').pop(); let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
-                        if (foundKey) { let ext = foundKey.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; } 
+                        if (foundKey) { 
+                            let ext = foundKey.split('.').pop().toLowerCase(); 
+                            if (ext === 'jpg') ext = 'jpeg';
+                            finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; 
+                        } 
                         else if (iconHref.startsWith('http')) { finalIconUrl = iconHref; } 
                         else { finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; }
                     }
@@ -1929,6 +1986,7 @@
 
             layerGroup.addTo(map);
 
+            // 3. Khởi tạo thanh trượt chỉnh độ mờ (Opacity Slider)
             const sliderId = 'opacity-slider-' + Date.now() + Math.floor(Math.random() * 1000);
             const layerLabelWithControl = `
                 <span class="layer-name-text">${layerName}</span>
@@ -1941,7 +1999,9 @@
             extState.kmzIndividualLayers.push({ name: layerName, layer: layerGroup });
             externalLayersNode.children.push({ label: layerLabelWithControl, layer: layerGroup });
 
-            if (globalBounds && layerGroup.getBounds && layerGroup.getBounds().isValid()) { globalBounds.extend(layerGroup.getBounds()); }
+            if (globalBounds && layerGroup.getBounds && typeof layerGroup.getBounds === 'function' && layerGroup.getBounds().isValid()) { 
+                globalBounds.extend(layerGroup.getBounds()); 
+            }
 
             setTimeout(() => {
                 const sliderInput = document.getElementById(sliderId);
@@ -1959,7 +2019,10 @@
             }, 300);
 
             if(singleMode) {
-                if (layerGroup.getBounds().isValid() && map) { const pad = getAdaptiveBoundsPadding(); map.fitBounds(layerGroup.getBounds(), { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true, duration: 1.2 }); }
+                if (layerGroup.getBounds && typeof layerGroup.getBounds === 'function' && layerGroup.getBounds().isValid() && map) { 
+                    const pad = getAdaptiveBoundsPadding(); 
+                    map.fitBounds(layerGroup.getBounds(), { paddingTopLeft: pad.paddingTopLeft, paddingBottomRight: pad.paddingBottomRight, animate: true, duration: 1.2 }); 
+                }
                 refreshLayerTreeControl(); toggleLoading(false); showToast(`Đã nạp thành công: ${layerName}`, "success");
             }
         }
