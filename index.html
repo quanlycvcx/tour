@@ -456,77 +456,6 @@
             cursor: pointer;
         }
 
-        .bottom-sheet {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            right: 0;
-            width: 100%;
-            max-height: 75vh;
-            background: #ffffff;
-            border-radius: 16px 16px 0 0;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-            z-index: 2000;
-            transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            visibility: hidden;
-        }
-        .bottom-sheet.show {
-            bottom: 0;
-            visibility: visible;
-        }
-        .bottom-sheet-header {
-            padding: 8px 16px 12px 16px;
-            border-bottom: 1px solid #eee;
-            background: #fdfdfd;
-            border-radius: 16px 16px 0 0;
-        }
-        .bottom-sheet-handle {
-            width: 40px;
-            height: 4px;
-            background: #ccc;
-            border-radius: 2px;
-            margin: 0 auto 8px auto;
-        }
-        .bottom-sheet-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .bottom-sheet-title-row h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-        .btn-close-sheet {
-            background: none;
-            border: none;
-            font-size: 16px;
-            color: #666;
-            cursor: pointer;
-            padding: 4px;
-        }
-        .bottom-sheet-body {
-            padding: 16px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        .bottom-sheet-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 1999;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .bottom-sheet-overlay.show {
-            display: block;
-            opacity: 1;
-        }
-
         .btn-popup-cloud-save {
             display: inline-flex;
             align-items: center;
@@ -549,25 +478,6 @@
         .btn-popup-cloud-save.saved { background-color: #28a745; cursor: default; }
 
         @media (max-width: 767px) {
-            .leaflet-control-layers-tree.leaflet-control-layers-expanded {
-                display: none !important;
-            }
-            .mobile-layer-trigger {
-                position: fixed;
-                right: 12px;
-                bottom: 85px;
-                width: 46px;
-                height: 46px;
-                background: #28a745;
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                z-index: 1000;
-                cursor: pointer;
-            }
             .leaflet-top.leaflet-right { top: 65px !important; }
             #search-ui-container { top: 12px; padding: 2px 6px; width: 92%; }
             #search-ui-container input { padding: 6px 2px 6px 6px; font-size: 13px; }
@@ -584,9 +494,6 @@
             #route-summary-modal { top: 65px; width: 85%; padding: 12px; }
             .leaflet-top.leaflet-left { top: 70px; }
             #streetview-modal .modal-content { height: 60vh; }
-        }
-        @media (min-width: 768px) {
-            .mobile-layer-trigger { display: none !important; }
         }
         </style>
     </head>
@@ -625,7 +532,7 @@
             </a>
             
             <button id="custom-draw-marker-btn" title="Đánh Dấu Điểm Vị Trí">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5 1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
             </button>
             <button id="custom-draw-line-btn" title="Đo Khoảng Cách / Vẽ Đường">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23 8c0 1.1-.9 2-2 2-.18 0-.35-.02-.51-.07l-3.56 3.55c.05.16.07.33.07.52 0 1.1-.9 2-2 2s-2-.9-2-2c0-.19.02-.36.07-.52l-2.55-2.55c-.16.05-.33.07-.52.07s-.36-.02-.52-.07l-4.55 4.56c.05.16.07.33.07.52 0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2c.19 0 .36.02.52.07l4.56-4.55C3.02 10.36 3 10.19 3 10c0-1.1.9-2 2-2s2 .9 2 2c0 .19-.02.36-.07.52l2.55 2.55c.16-.05.33-.07.52-.07s.36.02.52.07l3.55-3.56C14.02 9.35 14 9.18 14 9c0-1.1.9-2 2-2s2 .9 2 2c0 .18-.02.35-.07.51l3.56 3.56c.16-.05.33-.07.51-.07 1.1 0 2 .9 2 2z"/></svg>
@@ -686,7 +593,7 @@
                         <input type="text" id="directions-start-input" placeholder="Nhập địa điểm hoặc chọn từ bản đồ...">
                         <span class="inner-clear-btn" data-target="directions-start-input">×</span>
                         <button type="button" class="btn-map-picker" id="btn-pick-start" title="Chọn điểm bắt đầu từ Bản đồ">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5 1.12-2.5 2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         </button>
                     </div>
                 </div>
@@ -696,7 +603,7 @@
                         <input type="text" id="directions-end-input" placeholder="Nhập điểm đích đến hoặc chọn từ bản đồ...">
                         <span class="inner-clear-btn" data-target="directions-end-input">×</span>
                         <button type="button" class="btn-map-picker" id="btn-pick-end" title="Chọn điểm kết thúc từ Bản đồ">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5 1.12-2.5 2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         </button>
                     </div>
                 </div>
@@ -840,18 +747,6 @@
             </div>
         </div>
 
-        <div id="mobile-bottom-sheet" class="bottom-sheet">
-            <div class="bottom-sheet-header">
-                <div class="bottom-sheet-handle"></div>
-                <div class="bottom-sheet-title-row">
-                    <h3>Danh mục lớp bản đồ</h3>
-                    <button id="close-bottom-sheet" class="btn-close-sheet"><i class="fas fa-times"></i></button>
-                </div>
-            </div>
-            <div id="bottom-sheet-content" class="bottom-sheet-body"></div>
-        </div>
-        <div id="bottom-sheet-overlay" class="bottom-sheet-overlay"></div>
-
         <div id="loading-spinner"></div>
         <div id="toast-notification"></div>
         <canvas id="helperCanvas" style="display:none;"></canvas>
@@ -951,8 +846,6 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {}
 
-        // --- KHỞI TẠO CÁC PANE & LỚP ĐƯỜNG ĐỒNG MỨC (CONTOUR) ---
-        // Đặt z-index thấp (399) để đảm bảo nằm phía dưới lớp Google Satellite Hybrid (400)
         map.createPane('pane_ContourLines');
         map.getPane('pane_ContourLines').style.zIndex = 399;
         var layer_ContourLines = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -967,7 +860,6 @@
         var layer_GEHybrid_0 = L.tileLayer('http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}', {
             pane: 'pane_GEHybrid_0', opacity: 1.0, attribution: '', minZoom: 1, maxZoom: 28, minNativeZoom: 0, maxNativeZoom: 30
         });
-
 
         map.createPane('pane_GoogleMaps_1');
         map.getPane('pane_GoogleMaps_1').style.zIndex = 401;
@@ -1078,12 +970,22 @@
         });
         bounds_group.addLayer(layer_PThuDuc_3);
 
+        // Khởi tạo các Lớp nhóm Điểm đến
+        var layer_EQ_Tourism2026 = L.featureGroup();
+        var layer_VN_2026 = L.featureGroup();
+        map.addLayer(layer_VN_2026); // VN_2026 MẶC ĐỊNH HIỂN THỊ
+
         var externalLayersNode = {
             label: '<b>Lớp dữ liệu ngoại vi:</b>',
             children: []
         };
 
+        // Danh mục lớp bản đồ: Nhóm "Điểm đến" nằm PHÍA TRÊN nhóm "Lượng mưa"
         var overlaysTree = [
+            {label: '<b>Điểm đến:</b>', children: [
+                {label: "EQ_Tourism2026", layer: layer_EQ_Tourism2026},
+                {label: "VN_2026", layer: layer_VN_2026}
+            ]},
             {label: '<b>Lượng mưa:</b>', children: [
                 {label: "Rain Viewer HD", layer: layer_RainViewerRadar},
                 {label: "Open Weather", layer: layer_OpenWeatherPrecipitation},
@@ -1122,7 +1024,8 @@
             startCoord: null,
             endCoord: null,
             currentActiveRouteGeo: null,
-            currentActiveInstructions: null 
+            currentActiveInstructions: null,
+            eqTourismLoaded: false
         };
 
         var drawnItems = new L.FeatureGroup().addTo(map);
@@ -1424,6 +1327,167 @@
             });
         }
 
+        // TỰ ĐỘNG NẠP LỚP VN_2026.KMZ TỪ GOOGLE DRIVE KHI MỞ TRANG
+        async function autoLoadVN2026LayerFromDrive() {
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=listFiles`, { method: 'GET', redirect: 'follow' });
+                const data = await response.json();
+                if (data.status === "success" && data.files && data.files.length > 0) {
+                    const vn2026File = data.files.find(f => f.name.toLowerCase().includes('vn_2026'));
+                    if (vn2026File) {
+                        const fileResp = await fetch(`${APPS_SCRIPT_URL}?action=getFile&id=${vn2026File.id}`, { method: 'GET', redirect: 'follow' });
+                        const fileData = await fileResp.json();
+                        if (fileData.status === "success") {
+                            let dom; let kmzFiles = {};
+                            if (vn2026File.name.toLowerCase().endsWith('.kmz')) {
+                                const zip = await JSZip.loadAsync(fileData.content, {base64: true});
+                                const kmlFile = Object.keys(zip.files).find(n => n.toLowerCase().endsWith('.kml'));
+                                if (kmlFile) {
+                                    dom = (new DOMParser()).parseFromString(await zip.file(kmlFile).async('string'), 'text/xml');
+                                    for (const relativePath of Object.keys(zip.files)) {
+                                        if (!zip.files[relativePath].dir && relativePath !== kmlFile) {
+                                            kmzFiles[relativePath] = await zip.files[relativePath].async('base64');
+                                        }
+                                    }
+                                }
+                            } else {
+                                dom = (new DOMParser()).parseFromString(fileData.content, 'text/xml');
+                            }
+                            if (dom) {
+                                parseAndPopulateLayerGroup(dom, layer_VN_2026, kmzFiles);
+                                showToast("Đã hiển thị mặc định lớp VN_2026 từ Google Drive", "success");
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Không thể tự động nạp lớp VN_2026 từ Drive: ", err);
+            }
+        }
+
+        // NẠP TỰ ĐỘNG LỚP EQ_Tourism2026 KHI NGƯỜI DÙNG BẤM TÍCH CHỌN MỞ, SAU ĐÓ ZOOM OUT -1 LEVEL
+        async function fetchAndLoadEQTourism2026() {
+            if (extState.eqTourismLoaded) return;
+            toggleLoading(true);
+            showToast("Đang kết nối tải dữ liệu EQ_Tourism2026...", "info");
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=listFiles`, { method: 'GET', redirect: 'follow' });
+                const data = await response.json();
+                if (data.status === "success" && data.files && data.files.length > 0) {
+                    const targetFile = data.files.find(f => f.name.toLowerCase().includes('eq_tourism2026'));
+                    if (targetFile) {
+                        const fileResp = await fetch(`${APPS_SCRIPT_URL}?action=getFile&id=${targetFile.id}`, { method: 'GET', redirect: 'follow' });
+                        const fileData = await fileResp.json();
+                        if (fileData.status === "success") {
+                            let dom; let kmzFiles = {};
+                            if (targetFile.name.toLowerCase().endsWith('.kmz')) {
+                                const zip = await JSZip.loadAsync(fileData.content, {base64: true});
+                                const kmlFile = Object.keys(zip.files).find(n => n.toLowerCase().endsWith('.kml'));
+                                if (kmlFile) {
+                                    dom = (new DOMParser()).parseFromString(await zip.file(kmlFile).async('string'), 'text/xml');
+                                    for (const relativePath of Object.keys(zip.files)) {
+                                        if (!zip.files[relativePath].dir && relativePath !== kmlFile) {
+                                            kmzFiles[relativePath] = await zip.files[relativePath].async('base64');
+                                        }
+                                    }
+                                }
+                            } else {
+                                dom = (new DOMParser()).parseFromString(fileData.content, 'text/xml');
+                            }
+                            if (dom) {
+                                parseAndPopulateLayerGroup(dom, layer_EQ_Tourism2026, kmzFiles);
+                                extState.eqTourismLoaded = true;
+                                
+                                // Zoom nhỏ lại 1 cấp độ trong khung nhìn hiện tại để trải nghiệm thị giác cân bằng
+                                map.zoomOut(1);
+                                showToast("Đã nạp và hiển thị lớp EQ_Tourism2026 thành công!", "success");
+                            }
+                        }
+                    } else {
+                        showToast("Không tìm thấy file EQ_Tourism2026.kmz trên kho Drive.", "error");
+                    }
+                }
+            } catch (err) {
+                console.error("Lỗi khi nạp lớp EQ_Tourism2026: ", err);
+                showToast("Lỗi kết nối khi nạp lớp EQ_Tourism2026.", "error");
+            } finally {
+                toggleLoading(false);
+            }
+        }
+
+        // Đăng ký sự kiện bật lớp EQ_Tourism2026
+        map.on('overlayadd', function(e) {
+            if (e.layer === layer_EQ_Tourism2026) {
+                fetchAndLoadEQTourism2026();
+            }
+        });
+
+        // Hàm parse DOM KML/KMZ chung
+        function parseAndPopulateLayerGroup(dom, targetLayerGroup, kmzFiles = {}) {
+            const iconStyles = {}; const styleMaps = {}; const styles = dom.getElementsByTagName('Style');
+            for (const style of styles) {
+                const styleId = style.getAttribute('id'); const iconHrefElement = style.getElementsByTagName('IconStyle')[0]?.getElementsByTagName('Icon')[0]?.getElementsByTagName('href')[0];
+                if (styleId && iconHrefElement) {
+                    let iconHref = iconHrefElement.textContent.trim(); let cleanHref = iconHref.replace(/^(\.\.\/|\.\/)/, ''); let finalIconUrl = "";
+                    if (kmzFiles[cleanHref]) { let ext = cleanHref.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[cleanHref]}`; } 
+                    else {
+                        let baseName = cleanHref.split('/').pop(); let foundKey = Object.keys(kmzFiles).find(k => k.endsWith(baseName) || baseName.endsWith(k));
+                        if (foundKey) { let ext = foundKey.split('.').pop(); finalIconUrl = `data:image/${ext};base64,${kmzFiles[foundKey]}`; } 
+                        else if (iconHref.startsWith('http')) { finalIconUrl = iconHref; } 
+                        else { finalIconUrl = getCustomIcon(baseName.split('.')[0]).options.iconUrl; }
+                    }
+                    iconStyles[`#${styleId}`] = L.icon({ iconUrl: finalIconUrl, iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -32] });
+                }
+            }
+            const kmlStyleMaps = dom.getElementsByTagName('StyleMap');
+            for (const styleMap of kmlStyleMaps) { 
+                const styleMapId = styleMap.getAttribute('id'); const pairs = styleMap.getElementsByTagName('Pair');
+                for (let j = 0; j < pairs.length; j++) {
+                    let key = pairs[j].getElementsByTagName('key')[0]?.textContent;
+                    if (key === 'normal') { let normalStyleUrl = pairs[j].getElementsByTagName('styleUrl')[0]?.textContent; if (styleMapId && normalStyleUrl) styleMaps[`#${styleMapId}`] = normalStyleUrl; break; }
+                }
+            }
+
+            var geoJsonData = toGeoJSON.kml(dom);
+            L.geoJSON(geoJsonData, {
+                style: (f) => f.properties.styleUrl && f.properties.styleUrl.includes('LineString') ? { color: '#007BFF', weight: 4 } : {},
+                pointToLayer: function (f, latlng) {
+                    let o = { pane: 'popupPane' };
+                    let sUrl = f.properties.styleUrl; 
+                    if (sUrl) { 
+                        if (styleMaps[sUrl]) sUrl = styleMaps[sUrl]; 
+                        if (iconStyles[sUrl]) o.icon = iconStyles[sUrl]; 
+                    }
+                    if (!o.icon) {
+                        o.icon = L.icon({ 
+                            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', 
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png', 
+                            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41] 
+                        });
+                    }
+                    return L.marker(latlng, o);
+                },
+                onEachFeature: function(f, layer) {
+                    let c = ""; 
+                    if (f.properties.name) c += `<b>${f.properties.name}</b>`; 
+                    if (f.properties.description) {
+                        let desc = f.properties.description;
+                        for (const relativePath in kmzFiles) {
+                            if (desc.includes(relativePath)) {
+                                const ext = relativePath.split('.').pop();
+                                desc = desc.replace(new RegExp(relativePath, 'g'), `data:image/${ext};base64,${kmzFiles[relativePath]}`);
+                            }
+                        }
+                        c += `<br>${desc}`;
+                    }
+                    if (c) {
+                        layer.bindPopup(c, { maxWidth: 320 });
+                    }
+                    targetLayerGroup.addLayer(layer);
+                }
+            });
+        }
+
         $('#drive-search-input').on('keyup', function() {
             var keyword = $(this).val().toLowerCase().trim();
             $('.drive-file-item').each(function() {
@@ -1622,7 +1686,7 @@
         function executeSaveRouteToDrive() {
             var fileName = $('#kml-filename').val().trim(); var description = $('#kml-description').val().trim() || "Không có mô tả.";
             if (!fileName) { alert("Vui lòng đặt tên file!"); return; }
-            $('#save-kml-modal').removeClass('visible'); toggleLoading(true);
+            $('#save-modal-title').removeClass('visible'); toggleLoading(true);
             let kml = `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n<name>${fileName}</name>\n<description><![CDATA[${description}]]></description>\n`;
             kml += `  <Placemark>\n    <name>Tuyen duong di ngan nhat</name>\n    <description><![CDATA[${description}]]></description>\n    <LineString>\n      <coordinates>\n`;
             extState.currentActiveRouteGeo.forEach(pt => { kml += `        ${pt.lng},${pt.lat},0\n`; });
@@ -1900,39 +1964,8 @@
             }
         }
 
-        if (!document.getElementById('btn-mobile-layers')) {
-            const mobileBtn = document.createElement('div'); mobileBtn.id = 'btn-mobile-layers'; mobileBtn.className = 'mobile-layer-trigger';
-            mobileBtn.innerHTML = '<i class="fas fa-layer-group"></i>'; document.body.appendChild(mobileBtn);
-            mobileBtn.addEventListener('click', toggleBottomSheet);
-        }
-
-        function toggleBottomSheet() {
-            const sheet = document.getElementById('mobile-bottom-sheet'); const overlay = document.getElementById('bottom-sheet-overlay');
-            if (sheet.classList.contains('show')) { sheet.classList.remove('show'); overlay.classList.remove('show'); } 
-            else {
-                const leafletLayerContainer = document.querySelector('.leaflet-control-layers-list');
-                if (leafletLayerContainer) {
-                    document.getElementById('bottom-sheet-content').innerHTML = leafletLayerContainer.innerHTML;
-                    const inputs = document.getElementById('bottom-sheet-content').querySelectorAll('input');
-                    inputs.forEach(input => {
-                        input.addEventListener('change', function() {
-                            const originalInput = leafletLayerContainer.querySelector(`input[id="${this.id}"], input[class="${this.className}"]`);
-                            if (originalInput) originalInput.click();
-                        });
-                    });
-                }
-                sheet.classList.add('show'); overlay.classList.add('show');
-            }
-        }
-        document.getElementById('close-bottom-sheet').addEventListener('click', toggleBottomSheet);
-        document.getElementById('bottom-sheet-overlay').addEventListener('click', toggleBottomSheet);
-
         function refreshLayerTreeControl() {
-            map.removeControl(lay); lay = L.control.layers.tree(null, overlaysTree, { collapsed: window.innerWidth > 767 }); lay.addTo(map);
-            if (window.innerWidth <= 767 && document.getElementById('mobile-bottom-sheet').classList.contains('show')) {
-                const leafletLayerContainer = document.querySelector('.leaflet-control-layers-list');
-                if (leafletLayerContainer) document.getElementById('bottom-sheet-content').innerHTML = leafletLayerContainer.innerHTML;
-            }
+            map.removeControl(lay); lay = L.control.layers.tree(null, overlaysTree, { collapsed: true }); lay.addTo(map);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -1943,6 +1976,7 @@
                     getWeather(sessionData.lat, sessionData.lng, sessionData.name);
                 } catch (err) { console.error("Không thể khôi phục phiên thời tiết:", err); }
             }
+            autoLoadVN2026LayerFromDrive();
         });
         </script>
     </body>
